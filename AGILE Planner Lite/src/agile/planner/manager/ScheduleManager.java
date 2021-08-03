@@ -1,6 +1,7 @@
 package agile.planner.manager;
 
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 import agile.planner.io.IOProcessing;
@@ -14,8 +15,8 @@ import agile.planner.task.Task;
  */
 public class ScheduleManager {
 	
-	/** PriorityQueue of Days representing a single schedule */
-	private PriorityQueue<Day> schedule;
+	/** LinkedList of Days representing a single schedule */
+	private LinkedList<Day> schedule;
 	/** PriorityQueue of all Tasks in sorted order */
 	private PriorityQueue<Task> totalTasks;
 	/** Single instance of a ScheduleManager */
@@ -77,6 +78,7 @@ public class ScheduleManager {
 			while(processed.size() > 0) {
 				totalTasks.add(processed.remove());
 			}
+			schedule.addLast(day);
 		}
 	}
 	

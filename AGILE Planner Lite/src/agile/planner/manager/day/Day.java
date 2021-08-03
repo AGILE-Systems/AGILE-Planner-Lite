@@ -12,7 +12,13 @@ import agile.planner.task.Task.SubTask;
  * @author Andrew Roe
  */
 public class Day implements Comparable<Day> {
-	
+//	TODO
+//	if incrementing day leads to to month overflow, increment month and set day to 1
+//	if the new month is January, increment year
+//
+//	use the Date object
+//
+//	can easily compare Dates [NOTE: We will need to use the last Date object when creating the next, time is relative to each other]
 	private Date date;
 	/** Number of hours possible for a given Day */
 	private int capacity;
