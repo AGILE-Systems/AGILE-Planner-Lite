@@ -2,6 +2,7 @@ package agile.planner.io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
@@ -15,9 +16,9 @@ import agile.planner.task.Task;
  */
 public class IOProcessing {
 	
-	public static void writeSchedule(PriorityQueue<Day> pq) {
-		for(int i = 0; pq.size() > 0; i++) {
-			Day day = pq.remove();
+	public static void writeSchedule(LinkedList<Day> list) {
+		for(int i = 0; list.size() > 0; i++) {
+			Day day = list.removeFirst();
 			System.out.println("Day " + i + ":");
 			System.out.println(day.toString());
 		}

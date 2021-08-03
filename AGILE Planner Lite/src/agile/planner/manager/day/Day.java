@@ -11,7 +11,7 @@ import agile.planner.task.Task.SubTask;
  * 
  * @author Andrew Roe
  */
-public class Day implements Comparable<Day> {
+public class Day {
 //	TODO
 //	if incrementing day leads to to month overflow, increment month and set day to 1
 //	if the new month is January, increment year
@@ -33,7 +33,7 @@ public class Day implements Comparable<Day> {
 	 * @param capacity total capacity for the day
 	 */
 	public Day(int capacity) {
-		setHours(capacity);
+		setCapacity(capacity);
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class Day implements Comparable<Day> {
 	 * 
 	 * @param capacity total possible hours
 	 */
-	private void setHours(int capacity) {
+	private void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
 	
@@ -65,12 +65,6 @@ public class Day implements Comparable<Day> {
 	 */
 	public boolean hasSpareHours() {
 		return capacity - size > 0;
-	}
-
-	@Override
-	public int compareTo(Day o) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 	
 	@Override
