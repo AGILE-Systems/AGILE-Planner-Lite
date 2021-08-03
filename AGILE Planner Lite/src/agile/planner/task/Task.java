@@ -1,5 +1,9 @@
 package agile.planner.task;
 
+import java.util.Calendar;
+
+import agile.planner.util.Time;
+
 /**
  * The core element of the underlying schedule. Possesses a name, a due date,
  * along with a total number of hours. It is responsible for the construction of
@@ -12,7 +16,7 @@ public class Task implements Comparable<Task> {
 	/** Name of the Task */
 	private String name;
 	/** Due date of the Task */
-	private int date;
+	private Calendar date;
 	/** Total number of hours for the Task */
 	private int total;
 	/** Number of SubTask hours */
@@ -25,10 +29,10 @@ public class Task implements Comparable<Task> {
 	 * @param total number of hours for Task
 	 * @param date due date for Task
 	 */
-	public Task(String name, int total, int date) {
+	public Task(String name, int total, int days) {
 		setName(name);
 		setTotalHours(total);
-		setDueDate(date);
+		setDueDate(days);
 	}
 	
 	/**
@@ -57,9 +61,10 @@ public class Task implements Comparable<Task> {
 	
 	@Override
 	public int compareTo(Task o) {
-		if(this.date < o.date || this.date == o.date && this.getSubTotalRemaining() > o.getSubTotalRemaining()) {
+		long timeDiff = this.date.compareTo(o.date);
+		if(timeDiff < 0 || timeDiff == 0 && this.getSubTotalRemaining() > o.getSubTotalRemaining()) {
 			return -1;
-		} else if(this.date > o.date || this.date == o.date && this.getSubTotalRemaining() < o.getSubTotalRemaining()) {
+		} else if(timeDiff > 0 || timeDiff == 0 && this.getSubTotalRemaining() < o.getSubTotalRemaining()) {
 			return 1;
 		} else {
 			return 0;
@@ -89,7 +94,7 @@ public class Task implements Comparable<Task> {
 	 * 
 	 * @return due date of Task
 	 */
-	public int getDueDate() {
+	public Calendar getDueDate() {
 		return date;
 	}
 
@@ -98,8 +103,8 @@ public class Task implements Comparable<Task> {
 	 * 
 	 * @param date due date of Task
 	 */
-	private void setDueDate(int date) { //TODO will need to include exceptions for the setters
-		this.date = date;
+	private void setDueDate(int days) { //TODO will need to include exceptions for the setters
+		this.date = Time.getFormattedCalendarInstance(days);
 	}
 
 	/**
@@ -122,7 +127,7 @@ public class Task implements Comparable<Task> {
 
 	@Override
 	public String toString() {
-		return "Task [name=" + name + ", total=" + total + ", date=" + date + "]";
+		return "Task [name=" + name + ", total=" + total + ", date=" + date.get(Calendar.DAY_OF_MONTH) + "]";
 	}
 	
 	
@@ -133,7 +138,7 @@ public class Task implements Comparable<Task> {
 	 * 
 	 * @author Andrew Roe
 	 */
-	public class SubTask {
+	public class SubTask implements Comparable<SubTask> {
 		
 		/** Parent Task of the SubTask */
 		private Task parentTask;
@@ -172,6 +177,11 @@ public class Task implements Comparable<Task> {
 		@Override
 		public String toString() {
 			return "SubTask [name=" + name + ", hours=" + hours + ", date=" + date + "]";
+		}
+
+		@Override
+		public int compareTo(SubTask o) {
+			return this.parentTask.compareTo(o.parentTask);
 		}
 	}
 }

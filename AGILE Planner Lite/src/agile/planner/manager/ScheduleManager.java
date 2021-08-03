@@ -59,27 +59,27 @@ public class ScheduleManager {
 	private void generateSchedule() {
 		//TODO will need to add a task to each day until that day is full. Will need to start up at the last point
 		//TODO might need to store all the contents into a new PQ object and store the reference back into totalTasks variable
-		PriorityQueue<Task> processed = new PriorityQueue<>();
-		while(totalTasks.size() > 0) {
-			Day day = new Day();
-			boolean flag = false;
-			while(day.getRemainingHours() > 0 && (totalTasks.size() > 0 || processed.size() > 0)) {
-				if(flag) {
-					Task task = processed.remove();
-					day.addSubTask(task);
-					totalTasks.add(task);
-					flag = processed.size() != 0;
-				} else {
-					Task task = totalTasks.remove();
-					day.addSubTask(task);
-					processed.add(task);
-				}
-			}
-			while(processed.size() > 0) {
-				totalTasks.add(processed.remove());
-			}
-			schedule.addLast(day);
-		}
+//		PriorityQueue<Task> processed = new PriorityQueue<>();
+//		while(totalTasks.size() > 0) {
+//			Day day = new Day();
+//			boolean flag = false;
+//			while(day.hasSpareHours() && (totalTasks.size() > 0 || processed.size() > 0)) {
+//				if(flag) {
+//					Task task = processed.remove();
+//					day.addSubTask(task);
+//					totalTasks.add(task);
+//					flag = processed.size() != 0;
+//				} else {
+//					Task task = totalTasks.remove();
+//					day.addSubTask(task);
+//					processed.add(task);
+//				}
+//			}
+//			while(processed.size() > 0) {
+//				totalTasks.add(processed.remove());
+//			}
+//			schedule.addLast(day);
+//		}
 	}
 	
 	/**

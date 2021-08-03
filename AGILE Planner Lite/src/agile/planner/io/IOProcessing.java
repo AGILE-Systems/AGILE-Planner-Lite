@@ -17,10 +17,12 @@ import agile.planner.task.Task;
 public class IOProcessing {
 	
 	public static void writeSchedule(LinkedList<Day> list) {
-		for(int i = 0; list.size() > 0; i++) {
+		int i = 0;
+		while(list.size() > 0) {
 			Day day = list.removeFirst();
 			System.out.println("Day " + i + ":");
 			System.out.println(day.toString());
+			i++;
 		}
 	}
 	
