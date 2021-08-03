@@ -23,6 +23,7 @@ public class IOProcessing {
 			System.out.println("Day " + i + ":");
 			System.out.println(day.toString());
 			i++;
+			System.out.println();
 		}
 	}
 	

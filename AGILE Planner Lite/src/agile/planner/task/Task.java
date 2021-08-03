@@ -27,7 +27,7 @@ public class Task implements Comparable<Task> {
 	 * 
 	 * @param name name of Task
 	 * @param total number of hours for Task
-	 * @param date due date for Task
+	 * @param days number of days till due date for Task
 	 */
 	public Task(String name, int total, int days) {
 		setName(name);
@@ -127,7 +127,7 @@ public class Task implements Comparable<Task> {
 
 	@Override
 	public String toString() {
-		return "Task [name=" + name + ", total=" + total + ", date=" + date.get(Calendar.DAY_OF_MONTH) + "]";
+		return "Task [name=" + name + ", total=" + total + "]";
 	}
 	
 	
@@ -176,7 +176,7 @@ public class Task implements Comparable<Task> {
 		
 		@Override
 		public String toString() {
-			return "SubTask [name=" + name + ", hours=" + hours + ", date=" + date + "]";
+			return "SubTask [name=" + name + ", hours=" + hours + "]";
 		}
 
 		@Override

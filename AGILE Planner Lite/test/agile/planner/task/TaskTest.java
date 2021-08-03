@@ -24,6 +24,9 @@ public class TaskTest {
 		assertNull(t1.addSubTask(0));
 		SubTask st1 = t1.addSubTask(2);
 		assertEquals(2, st1.getSubTaskHours());
+		assertNull(t1.addSubTask(3));
+		t1.addSubTask(2);
+		assertEquals(0, t1.getSubTotalRemaining());
 	}
 
 	/**
@@ -35,6 +38,9 @@ public class TaskTest {
 		SubTask st1 = t1.addSubTask(2);
 		assertEquals(2, st1.getSubTaskHours());
 		assertEquals(3, t1.getSubTotalRemaining());
+		assertNull(t1.addSubTask(4));
+		t1.addSubTask(3);
+		assertEquals(0, t1.getSubTotalRemaining());
 	}
 
 	/**
@@ -51,6 +57,7 @@ public class TaskTest {
 		assertEquals(1, t1.compareTo(t3));
 		assertEquals(-1, t2.compareTo(t3));
 		assertEquals(0, t2.compareTo(t4));
+		assertEquals(1, t1.compareTo(t2));
 	}
 
 	/**
@@ -59,14 +66,25 @@ public class TaskTest {
 	@Test
 	public void testToString() {
 		Task t1 = new Task("A", 2, 0);
-		int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-		assertEquals("Task [name=A, total=2, date=" + currentDay + "]", t1.toString());
-		
-//		Simple test to see if it would work (it did!)
-//		Calendar cal = Calendar.getInstance();
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//		cal.add(Calendar.DAY_OF_MONTH, 5);
-//	    System.out.println(sdf.format(cal.getTime()));
+		assertEquals("Task [name=A, total=2]", t1.toString());
+	}
+	
+	
+	/**
+	 * Tests getters & setters for Task
+	 */
+	@Test
+	public void testGettersAndSetters() {
+		Task t1 = new Task("CSC316", 8, 3);
+		assertEquals("CSC316", t1.getName());
+		assertEquals(8, t1.getTotalHours());
+		Calendar date = Calendar.getInstance();
+		date.add(Calendar.DAY_OF_MONTH, 3);
+		date.set(Calendar.HOUR_OF_DAY, 0);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		date.set(Calendar.MILLISECOND, 0);
+		assertEquals(date, t1.getDueDate());
 	}
 	
 	@Test
@@ -75,6 +93,14 @@ public class TaskTest {
 		SubTask st1 = t1.addSubTask(2);
 		assertEquals(t1, st1.getParentTask());
 		assertEquals(2, st1.getSubTaskHours());
+		assertEquals("SubTask [name=CSC116, hours=2]", st1.toString());
+		
+		Task t2 = new Task("CSC216", 4, 1);
+		SubTask st2 = t2.addSubTask(3);
+		
+		assertEquals(-1, st2.compareTo(st1));
+		assertEquals(0, st1.compareTo(st1));
+		assertEquals(1, st1.compareTo(st2));
 	}
 
 }
