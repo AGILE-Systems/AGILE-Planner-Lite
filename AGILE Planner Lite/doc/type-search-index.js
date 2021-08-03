@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"agile.planner.manager.day","l":"Day"},{"p":"agile.planner.io","l":"IOProcessing"},{"p":"agile.planner.manager","l":"ScheduleManager"},{"p":"agile.planner.ui","l":"SimpleUI"},{"p":"agile.planner.task","l":"Task.SubTask"},{"p":"agile.planner.task","l":"Task"}]
