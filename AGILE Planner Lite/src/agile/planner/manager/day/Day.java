@@ -74,7 +74,7 @@ public class Day {
 	 */
 	public void addSubTask(Task task) {
 		Calendar currentDay = Time.getFormattedCalendarInstance(0);
-		int days = Time.determineRangeOfDays(currentDay, task.getDueDate());
+		int days = Time.determineRangeOfDays(currentDay, task.getDueDate()) + 1;
 		
 		if(days == 0) {
 			int hours = task.getSubTotalRemaining();
@@ -88,7 +88,7 @@ public class Day {
 		//Gets the even distribution across all the days
 		int hours = task.getTotalHours() / days;
 		//Adds an additional hour if the hours don't evenly divide up across the days
-		hours += hours % days == 0 ? 0 : 1;
+		hours += task.getTotalHours() % days == 0 ? 0 : 1;
 		//Handles the case where we actually have less hours available due to scheduling
 		hours = hours > task.getSubTotalRemaining() ? task.getSubTotalRemaining() : hours;
 		//Fixes the number of hours according to what the Day has available
