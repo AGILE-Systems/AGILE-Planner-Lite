@@ -27,21 +27,21 @@ public class IOProcessingTest {
 	 */
 	@Test
 	public void testWriteSchedule() {
-		Day d1 = new Day(8, 0);
-		SubTask st1 = new Task("Task1", 4, 0).addSubTask(4);
-		d1.addSubTask(st1);
-		Day d2 = new Day(6, 1);
-		SubTask st2 = new Task("Task2", 5, 1).addSubTask(5);
-		d2.addSubTask(st2);
-		Day d3 = new Day(7, 2);
-		SubTask st3 = new Task("Task3", 3, 2).addSubTask(3);
-		d3.addSubTask(st3);
-		LinkedList<Day> list = new LinkedList<>();
-		list.addLast(d1);
-		list.addLast(d2);
-		list.addLast(d3);
-		
-		IOProcessing.writeSchedule(list);
+//		Day d1 = new Day(8, 0);
+//		SubTask st1 = new Task("Task1", 4, 0).addSubTask(4);
+//		d1.addSubTask(st1);
+//		Day d2 = new Day(6, 1);
+//		SubTask st2 = new Task("Task2", 5, 1).addSubTask(5);
+//		d2.addSubTask(st2);
+//		Day d3 = new Day(7, 2);
+//		SubTask st3 = new Task("Task3", 3, 2).addSubTask(3);
+//		d3.addSubTask(st3);
+//		LinkedList<Day> list = new LinkedList<>();
+//		list.addLast(d1);
+//		list.addLast(d2);
+//		list.addLast(d3);
+//		
+//		IOProcessing.writeSchedule(list);
 		
 	}
 

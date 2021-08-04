@@ -16,6 +16,11 @@ import agile.planner.task.Task;
  */
 public class IOProcessing {
 	
+	/**
+	 * Outputs the schedule in text format
+	 * 
+	 * @param list a list of Days from the Schedule
+	 */
 	public static void writeSchedule(LinkedList<Day> list) {
 		int i = 0;
 		while(list.size() > 0) {
@@ -37,7 +42,7 @@ public class IOProcessing {
 	public static PriorityQueue<Task> readSchedule(String filename) throws FileNotFoundException {
 		PriorityQueue<Task> pq = new PriorityQueue<>();
 		Scanner fileScanner = new Scanner(new File(filename));
-		fileScanner.useDelimiter(",|\\r\\n");
+		fileScanner.useDelimiter(",|\\r\\n|\\n");
 		while(fileScanner.hasNextLine()) {
 			String name = fileScanner.next();
 			int hours = fileScanner.nextInt();
