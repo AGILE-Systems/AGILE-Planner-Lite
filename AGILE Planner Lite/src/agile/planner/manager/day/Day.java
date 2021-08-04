@@ -3,6 +3,7 @@ package agile.planner.manager.day;
 import java.util.Calendar;
 import java.util.TreeSet;
 
+import agile.planner.task.Task;
 import agile.planner.task.Task.SubTask;
 import agile.planner.util.Time;
 
@@ -31,6 +32,7 @@ public class Day {
 	 * Primary constructor for Day
 	 * 
 	 * @param capacity total capacity for the day
+	 * @param days number of days from present day (0=today, 1=tomorrow, ...)
 	 */
 	public Day(int capacity, int days) {
 		setCapacity(capacity);
@@ -66,13 +68,36 @@ public class Day {
 	}
 	
 	/**
-	 * Adds a SubTask to the Day
+	 * Adds a Task to the Day
 	 * 
-	 * @param subtask SubTask to be added
+	 * @param task task to be added in the form of a SubTask
 	 */
-	public void addSubTask(SubTask subtask) {
-		subTasks.add(subtask);
-		this.size += subtask.getSubTaskHours();
+	public void addSubTask(Task task) {
+		Calendar currentDay = Time.getFormattedCalendarInstance(0);
+		int days = Time.determineRangeOfDays(currentDay, task.getDueDate());
+		
+		if(days == 0) {
+			int hours = task.getSubTotalRemaining();
+			SubTask st = task.addSubTask(hours);
+			subTasks.add(st);
+			this.size += hours;
+			return;
+			//TODO we will need to handle exceptions in this method if we don't have enough space
+		}
+		
+		//Gets the even distribution across all the days
+		int hours = task.getTotalHours() / days;
+		//Adds an additional hour if the hours don't evenly divide up across the days
+		hours += hours % days == 0 ? 0 : 1;
+		//Handles the case where we actually have less hours available due to scheduling
+		hours = hours > task.getSubTotalRemaining() ? task.getSubTotalRemaining() : hours;
+		//Fixes the number of hours according to what the Day has available
+		hours = hours + size > capacity ? capacity - size : hours;
+		
+		SubTask st = task.addSubTask(hours);
+		
+		subTasks.add(st);
+		this.size += hours;
 	}
 	
 	/**
