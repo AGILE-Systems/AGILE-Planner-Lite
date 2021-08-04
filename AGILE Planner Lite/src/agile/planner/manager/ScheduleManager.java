@@ -49,7 +49,7 @@ public class ScheduleManager {
 	 */
 	private void processTasks() {
 		try {
-			this.totalTasks = IOProcessing.readSchedule("data/file.txt");	//TODO will need to change this
+			this.totalTasks = IOProcessing.readSchedule("data/data1.txt");	//TODO will need to change this
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -59,27 +59,33 @@ public class ScheduleManager {
 	private void generateSchedule() {
 		//TODO will need to add a task to each day until that day is full. Will need to start up at the last point
 		//TODO might need to store all the contents into a new PQ object and store the reference back into totalTasks variable
-//		PriorityQueue<Task> processed = new PriorityQueue<>();
-//		while(totalTasks.size() > 0) {
-//			Day day = new Day();
-//			boolean flag = false;
-//			while(day.hasSpareHours() && (totalTasks.size() > 0 || processed.size() > 0)) {
-//				if(flag) {
-//					Task task = processed.remove();
-//					day.addSubTask(task);
-//					totalTasks.add(task);
-//					flag = processed.size() != 0;
-//				} else {
-//					Task task = totalTasks.remove();
-//					day.addSubTask(task);
-//					processed.add(task);
-//				}
-//			}
-//			while(processed.size() > 0) {
-//				totalTasks.add(processed.remove());
-//			}
-//			schedule.addLast(day);
-//		}
+		this.schedule = new LinkedList<>();
+		PriorityQueue<Task> processed = new PriorityQueue<>();
+		int count = 0;
+		while(totalTasks.size() > 0) {
+			Day day = new Day(8, count++);
+			boolean flag = false;
+			while(day.hasSpareHours() && (totalTasks.size() > 0 || processed.size() > 0)) {
+				if(flag) {
+					Task task = processed.remove();
+					day.addSubTask(task);
+					if(task.getSubTotalRemaining() > 0) {
+						totalTasks.add(task);
+					}
+					flag = processed.size() != 0;
+				} else {
+					Task task = totalTasks.remove();
+					day.addSubTask(task);
+					if(task.getSubTotalRemaining() > 0) {
+						processed.add(task);
+					}
+				}
+			}
+			while(processed.size() > 0) {
+				totalTasks.add(processed.remove());
+			}
+			schedule.addLast(day);
+		}
 	}
 	
 	/**

@@ -76,7 +76,7 @@ public class Day {
 		Calendar currentDay = Time.getFormattedCalendarInstance(0);
 		int days = Time.determineRangeOfDays(currentDay, task.getDueDate()) + 1;
 		
-		if(days == 0) {
+		if(days == 1) {
 			int hours = task.getSubTotalRemaining();
 			SubTask st = task.addSubTask(hours);
 			subTasks.add(st);
