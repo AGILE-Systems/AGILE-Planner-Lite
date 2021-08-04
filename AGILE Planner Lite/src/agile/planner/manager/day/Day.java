@@ -1,6 +1,8 @@
 package agile.planner.manager.day;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.TreeSet;
 
 import agile.planner.task.Task;
@@ -26,7 +28,7 @@ public class Day {
 	/** Number of hours filled for a given Day */
 	private int size;
 	/** TreeSet of all SubTasks */
-	private TreeSet<SubTask> subTasks;
+	private LinkedList<SubTask> subTasks;
 	
 	/**
 	 * Primary constructor for Day
@@ -37,7 +39,7 @@ public class Day {
 	public Day(int capacity, int days) {
 		setCapacity(capacity);
 		setDate(days);
-		subTasks = new TreeSet<>();
+		subTasks = new LinkedList<>();
 	}
 
 	/**
@@ -73,17 +75,17 @@ public class Day {
 	 * @param task task to be added in the form of a SubTask
 	 */
 	public void addSubTask(Task task) {
-		Calendar currentDay = Time.getFormattedCalendarInstance(0);
-		int days = Time.determineRangeOfDays(currentDay, task.getDueDate()) + 1;
-		
-		if(days == 1) {
+		if(Time.determineRangeOfDays(task.getDueDate(), this.date) == 0) {
 			int hours = task.getSubTotalRemaining();
 			SubTask st = task.addSubTask(hours);
-			subTasks.add(st);
-			this.size += hours;
+			subTasks.addLast(st);
+			this.size += hours + 0;
 			return;
 			//TODO we will need to handle exceptions in this method if we don't have enough space
 		}
+		
+		Calendar currentDay = Time.getFormattedCalendarInstance(0);
+		int days = Time.determineRangeOfDays(currentDay, task.getDueDate()) + 1;
 		
 		//Gets the even distribution across all the days
 		int hours = task.getTotalHours() / days;
@@ -96,7 +98,7 @@ public class Day {
 		
 		SubTask st = task.addSubTask(hours);
 		
-		subTasks.add(st);
+		subTasks.addLast(st);
 		this.size += hours;
 	}
 	
@@ -120,16 +122,16 @@ public class Day {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder("Day [");
-		int count = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+		StringBuilder sb = new StringBuilder("Date: " + sdf.format(this.date.getTime()) + "\n");
+		int count = 1;
 		for(SubTask st : subTasks) {
+			sb.append(count + ". ");
 			count++;
-			sb.append(st.toString());
-			if(count < subTasks.size()) {
-				sb.append(", ");
-			}
+			sb.append(st.getParentTask().getName() + ", ");
+			sb.append(st.getSubTaskHours() + "hr, Due ");
+			sb.append(sdf.format(st.getParentTask().getDueDate().getTime()) + "\n");
 		}
-		sb.append("]");
 		return sb.toString();
 	}
 

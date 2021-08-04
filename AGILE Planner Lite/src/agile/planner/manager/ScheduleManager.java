@@ -64,21 +64,11 @@ public class ScheduleManager {
 		int count = 0;
 		while(totalTasks.size() > 0) {
 			Day day = new Day(8, count++);
-			boolean flag = false;
-			while(day.hasSpareHours() && (totalTasks.size() > 0 || processed.size() > 0)) {
-				if(flag) {
-					Task task = processed.remove();
-					day.addSubTask(task);
-					if(task.getSubTotalRemaining() > 0) {
-						totalTasks.add(task);
-					}
-					flag = processed.size() != 0;
-				} else {
-					Task task = totalTasks.remove();
-					day.addSubTask(task);
-					if(task.getSubTotalRemaining() > 0) {
-						processed.add(task);
-					}
+			while(day.hasSpareHours() && totalTasks.size() > 0) {
+				Task task = totalTasks.remove();
+				day.addSubTask(task);
+				if(task.getSubTotalRemaining() > 0) {
+					processed.add(task);
 				}
 			}
 			while(processed.size() > 0) {

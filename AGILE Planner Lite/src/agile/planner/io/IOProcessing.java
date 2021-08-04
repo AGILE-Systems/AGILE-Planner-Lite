@@ -22,10 +22,8 @@ public class IOProcessing {
 	 * @param list a list of Days from the Schedule
 	 */
 	public static void writeSchedule(LinkedList<Day> list) {
-		while(list.size() > 0) {
-			Day day = list.removeFirst();
+		for(Day day : list) {
 			System.out.println(day.toString());
-			System.out.println();
 		}
 	}
 	
