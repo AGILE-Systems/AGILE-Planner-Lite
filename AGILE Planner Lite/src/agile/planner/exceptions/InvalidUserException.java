@@ -1,4 +1,4 @@
-package agile.planner.exception;
+package agile.planner.exceptions;
 
 /**
  * Thrown in cases where the User attributes are invalid

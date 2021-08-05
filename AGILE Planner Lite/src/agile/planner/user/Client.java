@@ -3,7 +3,7 @@ package agile.planner.user;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import agile.planner.exception.InvalidUserException;
+import agile.planner.exceptions.InvalidUserException;
 
 /**
  * Client of the AGILE Systems Planner. Holds key credential information

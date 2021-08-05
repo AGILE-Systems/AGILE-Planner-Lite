@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import agile.planner.exceptions.InvalidUserException;
+
 /**
  * Tests InvalidUserException functionality
  * 
@@ -17,10 +19,10 @@ public class InvalidUserExceptionTest {
 	@Test
 	public void testInvalidUserException() {
 		Exception e = new InvalidUserException();
-		assertEquals("agilesystems.planner.exceptions.InvalidUserException: Illegal User attributes applied", e.toString());
+		assertEquals("agile.planner.exceptions.InvalidUserException: Illegal User attributes applied", e.toString());
 		
 		e = new InvalidUserException("Test");
-		assertEquals("agilesystems.planner.exceptions.InvalidUserException: Test", e.toString());
+		assertEquals("agile.planner.exceptions.InvalidUserException: Test", e.toString());
 	}
 
 }

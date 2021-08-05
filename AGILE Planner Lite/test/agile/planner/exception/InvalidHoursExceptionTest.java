@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import agile.planner.exceptions.InvalidHoursException;
+
 /**
  * Tests InvalidHoursException
  * 
@@ -17,10 +19,10 @@ public class InvalidHoursExceptionTest {
 	@Test
 	public void testInvalidHoursException() {
 		Exception e = new InvalidHoursException();
-		assertEquals("agilesystems.planner.exceptions.InvalidHoursException: Hours used under invalid situation", e.toString());
+		assertEquals("agile.planner.exceptions.InvalidHoursException: Hours used under invalid situation", e.toString());
 		
 		e = new InvalidHoursException("Test");
-		assertEquals("agilesystems.planner.exceptions.InvalidHoursException: Test", e.toString());
+		assertEquals("agile.planner.exceptions.InvalidHoursException: Test", e.toString());
 	}
 
 }

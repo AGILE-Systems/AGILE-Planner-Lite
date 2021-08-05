@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import agile.planner.exceptions.InvalidTaskException;
+
 /**
  * Tests InvalidTaskException functionality
  * 
@@ -17,10 +19,10 @@ public class InvalidTaskExceptionTest {
 	@Test
 	public void testInvalidTaskException() {
 		Exception e = new InvalidTaskException();
-		assertEquals("agilesystems.planner.exceptions.InvalidTaskException: Illegal Task attributes applied", e.toString());
+		assertEquals("agile.planner.exceptions.InvalidTaskException: Illegal Task attributes applied", e.toString());
 		
 		e = new InvalidTaskException("Test");
-		assertEquals("agilesystems.planner.exceptions.InvalidTaskException: Test", e.toString());
+		assertEquals("agile.planner.exceptions.InvalidTaskException: Test", e.toString());
 	}
 
 }
