@@ -14,14 +14,27 @@ import agile.planner.manager.ScheduleManager;
  * @author Andrew Roe
  */
 public class SimpleUI {
-
-	/**
-	 * Starting point of the application from a terminal perspective
-	 * 
-	 * @param args command line arguments (none used)
-	 */
-	public static void main(String[] args) {
-		
+	
+	/** Singleton of SimpleUI */
+	private static SimpleUI singleton;
+	/** Manages all scheduling for AGILE Planner */
+	private ScheduleManager sm;
+	/** Holds the manual for all possible commands */
+	private HashMap<String, String> commandSheet;
+	
+	private SimpleUI() {
+		sm = ScheduleManager.getSingleton();
+		commandSheet = Commands.getSingleton().getCommandsSheet();
+	}
+	
+	public static SimpleUI getSingleton() {
+		if(singleton == null) {
+			singleton = new SimpleUI();
+		}
+		return singleton;
+	}
+	
+	public void outputHeader() {
 		System.out.println("Welcome to AGILE Planner 0.0.1\r\n"
 				+ "\r\n"
 				+ "2021-08-04 Changelog:\r\n"
@@ -34,15 +47,19 @@ public class SimpleUI {
 				+ "\r\n"
 				+ "For a complete list of commands, enter: list\r\n"
 				+ "\r\n"
-				+ "To view the manual for a command, enter: man <command>\n\n");
-		ScheduleManager sm = ScheduleManager.getSingleton();
-		
-		HashMap<String, String> commandSheet = Commands.getSingleton().getCommandsSheet();
+				+ "To view the manual for a command, enter: man <command>\n");
+	}
+	
+	/**
+	 * Executes the primary source of the application with the command line loop
+	 */
+	public void execute() {
+		outputHeader();
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 		
-		
 		Scanner strScanner = new Scanner(System.in);
+		
 		while(true) {
 			System.out.print("> ");
 			String input = strScanner.nextLine();
@@ -73,5 +90,16 @@ public class SimpleUI {
 		}
 		strScanner.close();
 	}
-
+	
+	/**
+	 * Starting point of the application from a terminal perspective
+	 * 
+	 * @param args command line arguments (none used)
+	 */
+	public static void main(String[] args) {
+		
+		SimpleUI commandLine = SimpleUI.getSingleton();
+		commandLine.execute();
+	}
+	
 }

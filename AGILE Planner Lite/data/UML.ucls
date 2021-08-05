@@ -64,46 +64,63 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="8">    
+  <class id="8" language="java" name="agile.planner.io.Commands" project="AGILE Planner Lite" 
+    file="/AGILE Planner Lite/src/agile/planner/io/Commands.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="667" y="556"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="9">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="9" name="schedule"/>      
-      <multiplicity id="10" minimum="0" maximum="2147483647"/>    
+      <attribute id="10" name="schedule"/>      
+      <multiplicity id="11" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="11">    
+  <association id="12">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="13" name="singleton"/>      
+      <multiplicity id="14" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="15">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="5"/>  
   </nesting>  
-  <association id="12">    
+  <association id="16">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="13" name="totalTasks"/>      
-      <multiplicity id="14" minimum="0" maximum="2147483647"/>    
+      <attribute id="17" name="totalTasks"/>      
+      <multiplicity id="18" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="15">    
+  <association id="19">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="16" name="parentTask"/>      
-      <multiplicity id="17" minimum="0" maximum="1"/>    
+      <attribute id="20" name="parentTask"/>      
+      <multiplicity id="21" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="18">    
+  <association id="22">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="19" name="manager"/>      
-      <multiplicity id="20" minimum="0" maximum="1"/>    
+      <attribute id="23" name="manager"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="21">    
+  <association id="25">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="22" name="subTasks"/>      
-      <multiplicity id="23" minimum="0" maximum="2147483647"/>    
+      <attribute id="26" name="subTasks"/>      
+      <multiplicity id="27" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
