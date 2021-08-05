@@ -86,6 +86,8 @@ public class SimpleUI {
 				break;
 			} else if(commandSheet.containsKey(input)) {
 				System.out.println(commandSheet.get(input));
+			} else {
+				System.out.println("Invalid command");
 			}
 		}
 		strScanner.close();

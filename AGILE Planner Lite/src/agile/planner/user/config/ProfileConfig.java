@@ -12,7 +12,13 @@ public class ProfileConfig {
 	/** Key client information as to name, email, etc. */
 	private Client client;
 	/** Key week configuration information such as number of hours for a given day */
-//	private WeekManager weekManager;
+	private int[] weekConfigHours;
+	
+	private ProfileConfig() {
+		//TODO we need to read in the data from the config file
+		setClient(client);
+		setWeekConfig();
+	}
 	
 	/**
 	 * Primary constructor for ProfileConfig
@@ -46,19 +52,22 @@ public class ProfileConfig {
 	/**
 	 * Gets the WeekManager from the profile configuration
 	 * 
-	 * @return WeekManager
+	 * @return TODO
 	 */
-//	public WeekManager getWeekManager() {
-//		return weekManager;
-//	}
+	public int[] getWeekManager() {
+		return null;
+	}
+	
+	public void setWeekConfig() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	/**
 	 * Sets the WeekManager for the profile configuration
-	 * 
-	 * @param weekManager WeekManager to be set
 	 */
-//	public void setWeekManager(WeekManager weekManager) {
-//		this.weekManager = weekManager;
-//	}
+	public void setWeekManager() {
+		
+	}
 
 }
