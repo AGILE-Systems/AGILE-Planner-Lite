@@ -1,4 +1,4 @@
-CSC316,10,3
-CSC216,5,2
-CSC116,6,1
-CSC230,3,0
+Finance Homework,4,2
+Business Law Study,10,4
+Accounting Lab,7,3
+Psychology Reading,6,1

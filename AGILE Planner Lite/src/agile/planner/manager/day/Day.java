@@ -3,7 +3,6 @@ package agile.planner.manager.day;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.LinkedList;
-import java.util.TreeSet;
 
 import agile.planner.task.Task;
 import agile.planner.task.Task.SubTask;
