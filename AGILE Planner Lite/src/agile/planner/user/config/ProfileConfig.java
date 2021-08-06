@@ -13,11 +13,14 @@ public class ProfileConfig {
 	private Client client;
 	/** Key week configuration information such as number of hours for a given day */
 	private int[] weekConfigHours;
+	/** Determines whether to utilize the distributive mode or not */
+	private boolean distributiveMode;
 	
-	private ProfileConfig() {
+	private ProfileConfig(Client client, boolean distributiveMode) {
 		//TODO we need to read in the data from the config file
 		setClient(client);
 		setWeekConfig();
+		setDistributiveMode(distributiveMode);
 	}
 	
 	/**
@@ -68,6 +71,14 @@ public class ProfileConfig {
 	 */
 	public void setWeekManager() {
 		
+	}
+	
+	public boolean getDistributiveMode() {
+		return distributiveMode;
+	}
+	
+	public void setDistributiveMode(boolean distributiveMode) {
+		this.distributiveMode = distributiveMode;
 	}
 
 }

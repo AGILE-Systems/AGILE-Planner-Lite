@@ -29,7 +29,7 @@ public class ScheduleManager {
 	 */
 	private ScheduleManager() {
 		processTasks();
-		generateSchedule();
+		generateDistributiveSchedule();
 	}
 	
 	/**
@@ -55,8 +55,29 @@ public class ScheduleManager {
 		}
 	}
 	
-	//TODO will need to go back to the diagram for a cleaner design framework
-	private void generateSchedule() {
+	public void addTask() {
+		
+	}
+	
+	public void removeTask() {
+		
+	}
+	
+	public void editTask() {
+		
+	}
+	
+	/**
+	 * Generates an entire schedule following a cram approach
+	 */
+	private void generateCramSchedule() {
+		//TODO will be implemented in v0.9.0
+	}
+	
+	/**
+	 * Generates an entire schedule following a distributive approach
+	 */
+	private void generateDistributiveSchedule() {
 		//TODO will need to add a task to each day until that day is full. Will need to start up at the last point
 		//TODO might need to store all the contents into a new PQ object and store the reference back into totalTasks variable
 		this.schedule = new LinkedList<>();
@@ -83,6 +104,10 @@ public class ScheduleManager {
 	 */
 	public void outputSchedule() {
 		IOProcessing.writeSchedule(schedule);
+	}
+	
+	public boolean scheduleIsEmpty() {
+		return schedule.isEmpty();
 	}
 
 }

@@ -102,6 +102,16 @@ public class Day {
 	}
 	
 	/**
+	 * Adds a SubTask manually to the Day
+	 * 
+	 * @param task Task to be added
+	 * @param hours number of hours for the SubTask
+	 */
+	public void addSubTaskManually(Task task, int hours) {
+		//TODO will be utilized for the schedule parsing IO
+	}
+	
+	/**
 	 * Gets spare hours from the Day
 	 * 
 	 * @return number of free hours available for scheduling

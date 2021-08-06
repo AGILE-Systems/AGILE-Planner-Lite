@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"agile.planner.ui"},{"l":"All Packages","url":"allpackages-index.html"}]
+packageSearchIndex = [{"l":"agile.planner.exceptions"},{"l":"agile.planner.ui"},{"l":"All Packages","url":"allpackages-index.html"}]

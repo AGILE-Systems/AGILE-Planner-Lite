@@ -67,7 +67,9 @@ public class SimpleUI {
 			if("time".equals(input)) {
 				System.out.println(sdf.format(Calendar.getInstance().getTime()));
 			} else if("schedule".equals(input)) {
-				sm.outputSchedule();
+				if(!sm.scheduleIsEmpty()) {
+					sm.outputSchedule();
+				}
 			} else if("add".equals(input)) {
 				
 			} else if("remove".equals(input)) {
