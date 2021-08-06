@@ -1,4 +1,4 @@
-Finance Homework,4,2
-Business Law Study,10,4
-Accounting Lab,7,3
-Psychology Reading,6,1
+A,8,0
+B,6,2
+C,6,2
+D,3,2
