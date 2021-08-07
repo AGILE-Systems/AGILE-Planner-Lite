@@ -23,7 +23,7 @@ public class Commands {
 	 */
 	private void buildCommandManual() {
 		commandManual = new HashMap<>();
-		commandManual.put("list", "list\nschedule\ntime\nadd\nremove\nedit\nview\nlog\nprint\nread");
+		commandManual.put("list", "list\nschedule\ntime\nadd\nremove\nedit\nview\nlog\nprint\nread\nquit");
 		commandManual.put("man list", "NAME\n\tlist - lists all possible commands\n\nSYNOPSIS\n\tlist\n\nDESCRIPTION\n\tLists all possible"
 				+ " commands available within AGILE Planner command line interface");
 		commandManual.put("man schedule", "NAME\n\tschedule - displays entire schedule\n\nSYNOPSIS\n\tschedule\n\nDESCRIPTION\n\tDisplays"

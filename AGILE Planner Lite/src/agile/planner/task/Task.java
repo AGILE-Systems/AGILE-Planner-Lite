@@ -21,6 +21,8 @@ public class Task implements Comparable<Task> {
 	private int total;
 	/** Number of SubTask hours */
 	private int subTotal;
+	/** # of hours / (DueDate - StartingDay) */
+	private int averageNumHours;
 	
 	/**
 	 * Primary constructor for Task
@@ -39,12 +41,13 @@ public class Task implements Comparable<Task> {
 	 * Adds a SubTask for a given Task
 	 * 
 	 * @param hours number of hours
+	 * @param overflow overflow status of the SubTask
 	 * @return SubTask
 	 */
-	public SubTask addSubTask(int hours) {
+	public SubTask addSubTask(int hours, boolean overflow) {
 		SubTask st = null;
 		if(hours > 0 && subTotal + hours <= total) {
-			st = new SubTask(this, hours);
+			st = new SubTask(this, hours, overflow);
 			subTotal += hours;
 		}
 		return st;
@@ -124,6 +127,14 @@ public class Task implements Comparable<Task> {
 	private void setTotalHours(int total) { //TODO will need to include exceptions for the setters
 		this.total = total;
 	}
+	
+	public void setAverageNumberofHours(int averageNumHours) {
+		this.averageNumHours = averageNumHours;
+	}
+	
+	public int getAverageNumHours() {
+		return averageNumHours;
+	}
 
 	@Override
 	public String toString() {
@@ -144,6 +155,8 @@ public class Task implements Comparable<Task> {
 		private Task parentTask;
 		/** Number of hours for the SubTask */
 		private int hours;
+		/** Number of overflow hours due to scheduling */
+		private boolean overflow;
 		
 		/**
 		 * Primary constructor for SubTask
@@ -151,9 +164,10 @@ public class Task implements Comparable<Task> {
 		 * @param parentTask parent of the SubTask
 		 * @param hours number of hours for the SubTask
 		 */
-		private SubTask(Task parentTask, int hours) {
+		private SubTask(Task parentTask, int hours, boolean overflow) {
 			this.parentTask = parentTask;
 			this.hours = hours;
+			this.overflow = overflow;
 		}
 		
 		/**
@@ -172,6 +186,15 @@ public class Task implements Comparable<Task> {
 		 */
 		public int getSubTaskHours() {
 			return hours;
+		}
+		
+		/**
+		 * Determines whether SubTask overflowed
+		 * 
+		 * @return overflow status
+		 */
+		public boolean getOverflow() {
+			return overflow;
 		}
 		
 		@Override

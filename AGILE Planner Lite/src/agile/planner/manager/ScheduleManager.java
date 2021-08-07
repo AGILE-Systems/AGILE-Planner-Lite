@@ -55,15 +55,34 @@ public class ScheduleManager {
 		}
 	}
 	
-	public void addTask() {
+	/**
+	 * Adds a task to the schedule assuming no conflict
+	 * 
+	 * @param name name of the Task
+	 * @param hours number of hours for Task
+	 * @param dueDate number of days till due date (e.g. 0=today, 1=tomorrow, ...)
+	 */
+	public void addTask(String name, int hours, int dueDate) {
 		
 	}
 	
-	public void removeTask() {
+	/**
+	 * Removes a task from the schedule given the day and the task name TODO will need to handle duplicates
+	 * 
+	 * @param day day that the task exists (e.g. 0=today, 1=tomorrow, ...)
+	 * @param name name of the task
+	 */
+	public void removeTask(int day, String name) {
 		
 	}
 	
-	public void editTask() {
+	/**
+	 * Edits a task from the schedule given the day and the task name TODO will need to handle duplicates
+	 * 
+	 * @param day day that the task exists (e.g. 0=today, 1=tomorrow, ...)
+	 * @param name name of the task
+	 */
+	public void editTask(int day, String name) {
 		
 	}
 	
@@ -87,8 +106,12 @@ public class ScheduleManager {
 			Day day = new Day(8, count++);
 			while(day.hasSpareHours() && totalTasks.size() > 0) {
 				Task task = totalTasks.remove();
-				day.addSubTask(task);
-				if(task.getSubTotalRemaining() > 0) {
+				boolean validTask = day.addSubTask(task);
+				if(!validTask) {
+					while(totalTasks.size() > 0 && totalTasks.peek().getDueDate().equals(day.getDate())) {
+						day.addSubTask(totalTasks.remove());
+					}
+				} else if(task.getSubTotalRemaining() > 0) {
 					processed.add(task);
 				}
 			}

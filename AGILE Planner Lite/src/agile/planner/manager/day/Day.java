@@ -72,14 +72,16 @@ public class Day {
 	 * Adds a Task to the Day
 	 * 
 	 * @param task task to be added in the form of a SubTask
+	 * @return whether task was inserted without overflow
 	 */
-	public void addSubTask(Task task) {
-		if(Time.determineRangeOfDays(task.getDueDate(), this.date) == 0) {
+	public boolean addSubTask(Task task) {
+		if(this.date.equals(task.getDueDate())) {
+			boolean overflow = task.getSubTotalRemaining() > getSpareHours();
 			int hours = task.getSubTotalRemaining();
-			SubTask st = task.addSubTask(hours);
+			SubTask st = task.addSubTask(hours, overflow);
 			subTasks.addLast(st);
-			this.size += hours + 0;
-			return;
+			this.size += hours;
+			return !overflow;
 			//TODO we will need to handle exceptions in this method if we don't have enough space
 		}
 		
@@ -95,10 +97,12 @@ public class Day {
 		//Fixes the number of hours according to what the Day has available
 		hours = hours + size > capacity ? capacity - size : hours;
 		
-		SubTask st = task.addSubTask(hours);
+		SubTask st = task.addSubTask(hours, false);
 		
 		subTasks.addLast(st);
 		this.size += hours;
+		
+		return true;
 	}
 	
 	/**
@@ -139,7 +143,11 @@ public class Day {
 			count++;
 			sb.append(st.getParentTask().getName() + ", ");
 			sb.append(st.getSubTaskHours() + "hr, Due ");
-			sb.append(sdf.format(st.getParentTask().getDueDate().getTime()) + "\n");
+			sb.append(sdf.format(st.getParentTask().getDueDate().getTime()));
+			if(st.getOverflow()) {
+				sb.append(" OVERFLOW");
+			}
+			sb.append("\n");
 		}
 		return sb.toString();
 	}

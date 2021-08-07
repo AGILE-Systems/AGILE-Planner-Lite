@@ -21,11 +21,11 @@ public class TaskTest {
 	@Test
 	public void testAddSubTask() {
 		Task t1 = new Task("CSC116", 4, 2);
-		assertNull(t1.addSubTask(0));
-		SubTask st1 = t1.addSubTask(2);
+		assertNull(t1.addSubTask(0, false));
+		SubTask st1 = t1.addSubTask(2, false);
 		assertEquals(2, st1.getSubTaskHours());
-		assertNull(t1.addSubTask(3));
-		t1.addSubTask(2);
+		assertNull(t1.addSubTask(3, false));
+		t1.addSubTask(2, false);
 		assertEquals(0, t1.getSubTotalRemaining());
 	}
 
@@ -35,11 +35,11 @@ public class TaskTest {
 	@Test
 	public void testGetSubTotalRemaining() {
 		Task t1 = new Task("CSC116", 5, 2);
-		SubTask st1 = t1.addSubTask(2);
+		SubTask st1 = t1.addSubTask(2, false);
 		assertEquals(2, st1.getSubTaskHours());
 		assertEquals(3, t1.getSubTotalRemaining());
-		assertNull(t1.addSubTask(4));
-		t1.addSubTask(3);
+		assertNull(t1.addSubTask(4, false));
+		t1.addSubTask(3, false);
 		assertEquals(0, t1.getSubTotalRemaining());
 	}
 
@@ -90,13 +90,13 @@ public class TaskTest {
 	@Test
 	public void testSubTask() {
 		Task t1 = new Task("CSC116", 5, 2);
-		SubTask st1 = t1.addSubTask(2);
+		SubTask st1 = t1.addSubTask(2, false);
 		assertEquals(t1, st1.getParentTask());
 		assertEquals(2, st1.getSubTaskHours());
 		assertEquals("SubTask [name=CSC116, hours=2]", st1.toString());
 		
 		Task t2 = new Task("CSC216", 4, 1);
-		SubTask st2 = t2.addSubTask(3);
+		SubTask st2 = t2.addSubTask(3, false);
 		
 		assertEquals(-1, st2.compareTo(st1));
 		assertEquals(0, st1.compareTo(st1));
