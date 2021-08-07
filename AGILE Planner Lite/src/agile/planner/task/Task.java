@@ -51,8 +51,19 @@ public class Task implements Comparable<Task> {
 		if(hours > 0 && subTotal + hours <= total) {
 			st = new SubTask(this, hours, overflow);
 			subTotal += hours;
+			if(getSubTotalRemaining() == 0) {
+				this.finishedScheduling = true;
+			}
 		}
 		return st;
+	}
+	
+	public boolean isFinishedStatus() {
+		return finishedScheduling;
+	}
+	
+	public void reset() {
+		subTotal = 0;
 	}
 	
 	/**

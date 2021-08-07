@@ -108,6 +108,10 @@ public class ScheduleManager {
 			Day day = new Day(8, count++);
 			while(day.hasSpareHours() && totalTasks.size() > 0) {
 				Task task = totalTasks.remove();
+				//TODO need to verify whether task is marked as "finished" (will mean we reset everything to 0 for size, not capacity)
+				if(task.isFinishedStatus()) {
+					task.reset();
+				}
 				boolean validTask = day.addSubTask(task);
 				if(!validTask) {
 					copy.add(task);
