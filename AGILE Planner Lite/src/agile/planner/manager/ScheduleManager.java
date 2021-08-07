@@ -21,6 +21,8 @@ public class ScheduleManager {
 	private PriorityQueue<Task> totalTasks;
 	/** Single instance of a ScheduleManager */
 	private static ScheduleManager manager;
+	/** Total count for the number of errors that occurred in schedule generation */
+	private int errorCount;
 	
 	/**
 	 * Private constructor of ScheduleManager
@@ -58,12 +60,12 @@ public class ScheduleManager {
 	/**
 	 * Adds a task to the schedule assuming no conflict
 	 * 
-	 * @param name name of the Task
-	 * @param hours number of hours for Task
-	 * @param dueDate number of days till due date (e.g. 0=today, 1=tomorrow, ...)
+	 * @param task Task to be added to schedule
 	 */
-	public void addTask(String name, int hours, int dueDate) {
-		
+	public void addTask(Task task) {
+		totalTasks.add(task);
+		generateDistributiveSchedule();
+		outputSchedule();
 	}
 	
 	/**
@@ -97,9 +99,9 @@ public class ScheduleManager {
 	 * Generates an entire schedule following a distributive approach
 	 */
 	private void generateDistributiveSchedule() {
-		//TODO will need to add a task to each day until that day is full. Will need to start up at the last point
-		//TODO might need to store all the contents into a new PQ object and store the reference back into totalTasks variable
 		this.schedule = new LinkedList<>();
+		this.errorCount = 0;
+		PriorityQueue<Task> copy = new PriorityQueue<>();
 		PriorityQueue<Task> processed = new PriorityQueue<>();
 		int count = 0;
 		while(totalTasks.size() > 0) {
@@ -108,17 +110,24 @@ public class ScheduleManager {
 				Task task = totalTasks.remove();
 				boolean validTask = day.addSubTask(task);
 				if(!validTask) {
+					copy.add(task);
+					errorCount++;
 					while(totalTasks.size() > 0 && totalTasks.peek().getDueDate().equals(day.getDate())) {
+						copy.add(totalTasks.peek());
 						day.addSubTask(totalTasks.remove());
+						errorCount++;
 					}
 				} else if(task.getSubTotalRemaining() > 0) {
 					processed.add(task);
+				} else {
+					copy.add(task);
 				}
 			}
 			while(processed.size() > 0) {
 				totalTasks.add(processed.remove());
 			}
 			schedule.addLast(day);
+			this.totalTasks = copy;
 		}
 	}
 	
@@ -126,6 +135,9 @@ public class ScheduleManager {
 	 * Outputs the current schedule
 	 */
 	public void outputSchedule() {
+		if(errorCount > 0) {
+			System.out.println(errorCount + " overflows have occurred within schedule...");
+		}
 		IOProcessing.writeSchedule(schedule);
 	}
 	

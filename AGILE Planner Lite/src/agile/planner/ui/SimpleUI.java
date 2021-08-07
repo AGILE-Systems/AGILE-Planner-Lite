@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import agile.planner.io.Commands;
 import agile.planner.manager.ScheduleManager;
+import agile.planner.task.Task;
 
 /**
  * Basic Command Line UI
@@ -71,7 +72,7 @@ public class SimpleUI {
 					sm.outputSchedule();
 				}
 			} else if("add".equals(input)) {
-				
+				sm.addTask(new Task("E", 27, 5));
 			} else if("remove".equals(input)) {
 				
 			} else if("edit".equals(input)) {

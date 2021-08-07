@@ -23,6 +23,8 @@ public class Task implements Comparable<Task> {
 	private int subTotal;
 	/** # of hours / (DueDate - StartingDay) */
 	private int averageNumHours;
+	/** Determines whether the scheduling has been finished */
+	private boolean finishedScheduling;
 	
 	/**
 	 * Primary constructor for Task
