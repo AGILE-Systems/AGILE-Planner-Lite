@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 import agile.planner.io.IOProcessing;
 import agile.planner.manager.day.Day;
 import agile.planner.task.Task;
+import agile.planner.util.Time;
 
 /**
  * Handles the generation and management of the overall schedule
@@ -65,7 +66,6 @@ public class ScheduleManager {
 	public void addTask(Task task) {
 		totalTasks.add(task);
 		generateDistributiveSchedule();
-		outputSchedule();
 	}
 	
 	/**
@@ -131,8 +131,8 @@ public class ScheduleManager {
 				totalTasks.add(processed.remove());
 			}
 			schedule.addLast(day);
-			this.totalTasks = copy;
 		}
+		this.totalTasks = copy;
 	}
 	
 	/**

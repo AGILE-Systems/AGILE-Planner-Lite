@@ -44,6 +44,7 @@ public class IOProcessing {
 			int date = fileScanner.nextInt();
 			pq.add(new Task(name, hours, date));
 		}
+		fileScanner.close();
 		return pq;
 	}
 

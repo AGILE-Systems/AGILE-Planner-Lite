@@ -62,7 +62,6 @@ public class SimpleUI {
 		Scanner strScanner = new Scanner(System.in);
 		
 		while(true) {
-			System.out.print("> ");
 			String input = strScanner.nextLine();
 			
 			if("time".equals(input)) {
@@ -72,7 +71,12 @@ public class SimpleUI {
 					sm.outputSchedule();
 				}
 			} else if("add".equals(input)) {
-				sm.addTask(new Task("E", 27, 5));
+				System.out.print("Please enter Title,Hours,Due Date: ");
+				System.out.println(strScanner.hasNext());
+//				String name = strScanner.next();
+//				int hours = strScanner.nextInt();
+//				int dueDate = strScanner.nextInt();
+//				sm.addTask(new Task(name, hours, dueDate));
 			} else if("remove".equals(input)) {
 				
 			} else if("edit".equals(input)) {
