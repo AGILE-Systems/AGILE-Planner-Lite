@@ -94,6 +94,7 @@ public class TaskTest {
 		assertEquals(t1, st1.getParentTask());
 		assertEquals(2, st1.getSubTaskHours());
 		assertEquals("SubTask [name=CSC116, hours=2]", st1.toString());
+		assertEquals(0, t1.getAverageNumHours());
 		
 		Task t2 = new Task("CSC216", 4, 1);
 		SubTask st2 = t2.addSubTask(3, false);
@@ -101,6 +102,17 @@ public class TaskTest {
 		assertEquals(-1, st2.compareTo(st1));
 		assertEquals(0, st1.compareTo(st1));
 		assertEquals(1, st1.compareTo(st2));
+		
+		assertEquals(1, t2.getSubTotalRemaining());
+		t2.setAverageNumberofHours(2);
+		assertEquals(2, t2.getAverageNumHours());
+		
+		t2.reset();
+		assertEquals(4, t2.getSubTotalRemaining());
+		assertEquals(0, t2.getAverageNumHours());
+		
+		assertFalse(st2.getOverflow());
+		assertTrue(t2.addSubTask(1, true).getOverflow());
 	}
 
 }

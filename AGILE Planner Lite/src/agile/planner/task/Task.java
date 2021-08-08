@@ -23,8 +23,6 @@ public class Task implements Comparable<Task> {
 	private int subTotal;
 	/** # of hours / (DueDate - StartingDay) */
 	private int averageNumHours;
-	/** Determines whether the scheduling has been finished */
-	private boolean finishedScheduling;
 	
 	/**
 	 * Primary constructor for Task
@@ -51,19 +49,16 @@ public class Task implements Comparable<Task> {
 		if(hours > 0 && subTotal + hours <= total) {
 			st = new SubTask(this, hours, overflow);
 			subTotal += hours;
-			if(getSubTotalRemaining() == 0) {
-				this.finishedScheduling = true;
-			}
 		}
 		return st;
 	}
 	
-	public boolean isFinishedStatus() {
-		return finishedScheduling;
-	}
-	
+	/**
+	 * Resets the Task in all of its properties
+	 */
 	public void reset() {
 		subTotal = 0;
+		setAverageNumberofHours(0);
 	}
 	
 	/**
@@ -78,7 +73,7 @@ public class Task implements Comparable<Task> {
 	@Override
 	public int compareTo(Task o) {
 		long timeDiff = this.date.compareTo(o.date);
-		if(timeDiff < 0 || timeDiff == 0 && this.getSubTotalRemaining() > o.getSubTotalRemaining()) {
+		if(timeDiff < 0 || timeDiff == 0 && this.getSubTotalRemaining() > o.getSubTotalRemaining()) {	//TODO need to switch this to getTotalHours() [Test it first]
 			return -1;
 		} else if(timeDiff > 0 || timeDiff == 0 && this.getSubTotalRemaining() < o.getSubTotalRemaining()) {
 			return 1;
@@ -141,10 +136,20 @@ public class Task implements Comparable<Task> {
 		this.total = total;
 	}
 	
+	/**
+	 * Sets the average number of hours for the Task
+	 * 
+	 * @param averageNumHours average number of hours for the Task
+	 */
 	public void setAverageNumberofHours(int averageNumHours) {
 		this.averageNumHours = averageNumHours;
 	}
 	
+	/**
+	 * Gets the average number of hours for the Task
+	 * 
+	 * @return average number of hours for the Task
+	 */
 	public int getAverageNumHours() {
 		return averageNumHours;
 	}
