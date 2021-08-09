@@ -58,7 +58,7 @@ public class Task implements Comparable<Task> {
 	 */
 	public void reset() {
 		subTotal = 0;
-		setAverageNumberofHours(0);
+		this.averageNumHours = 0;
 	}
 	
 	/**
@@ -137,12 +137,15 @@ public class Task implements Comparable<Task> {
 	}
 	
 	/**
-	 * Sets the average number of hours for the Task
+	 * Computes and sets the average number of hours based on (number of hours / days)
 	 * 
-	 * @param averageNumHours average number of hours for the Task
+	 * @param date starting date that the task is available
 	 */
-	public void setAverageNumberofHours(int averageNumHours) {
-		this.averageNumHours = averageNumHours;
+	public void setAverageNumberofHours(Calendar date) {
+		int days = Time.determineRangeOfDays(date, this.date) + 1;
+		int avgHours = this.total / days;
+		avgHours += this.total % days == 0 ? 0 : 1;
+		this.averageNumHours = avgHours;
 	}
 	
 	/**

@@ -77,16 +77,11 @@ public class Day {
 			subTasks.addLast(st);
 			this.size += hours;
 			return !overflow;
-			//TODO we will need to handle exceptions in this method if we don't have enough space
 		}
-		
-		Calendar currentDay = Time.getFormattedCalendarInstance(0);
-		int days = Time.determineRangeOfDays(currentDay, task.getDueDate()) + 1;
-		
-		//Gets the even distribution across all the days
-		int hours = task.getTotalHours() / days;
-		//Adds an additional hour if the hours don't evenly divide up across the days
-		hours += task.getTotalHours() % days == 0 ? 0 : 1;
+		if(task.getAverageNumHours() == 0) {
+			task.setAverageNumberofHours(this.date);
+		}
+		int hours = task.getAverageNumHours();
 		//Handles the case where we actually have less hours available due to scheduling
 		hours = hours > task.getSubTotalRemaining() ? task.getSubTotalRemaining() : hours;
 		//Fixes the number of hours according to what the Day has available
