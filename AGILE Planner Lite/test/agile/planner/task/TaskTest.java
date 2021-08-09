@@ -7,6 +7,7 @@ import java.util.Calendar;
 import org.junit.Test;
 
 import agile.planner.task.Task.SubTask;
+import agile.planner.util.Time;
 
 /**
  * Tests Task core functionality
@@ -26,7 +27,7 @@ public class TaskTest {
 		assertEquals(2, st1.getSubTaskHours());
 		assertNull(t1.addSubTask(3, false));
 		t1.addSubTask(2, false);
-		assertEquals(0, t1.getSubTotalRemaining());
+		assertEquals(0, t1.getSubTotalHoursRemaining());
 	}
 
 	/**
@@ -37,10 +38,10 @@ public class TaskTest {
 		Task t1 = new Task("CSC116", 5, 2);
 		SubTask st1 = t1.addSubTask(2, false);
 		assertEquals(2, st1.getSubTaskHours());
-		assertEquals(3, t1.getSubTotalRemaining());
+		assertEquals(3, t1.getSubTotalHoursRemaining());
 		assertNull(t1.addSubTask(4, false));
 		t1.addSubTask(3, false);
-		assertEquals(0, t1.getSubTotalRemaining());
+		assertEquals(0, t1.getSubTotalHoursRemaining());
 	}
 
 	/**
@@ -103,16 +104,19 @@ public class TaskTest {
 		assertEquals(0, st1.compareTo(st1));
 		assertEquals(1, st1.compareTo(st2));
 		
-		assertEquals(1, t2.getSubTotalRemaining());
-		t2.setAverageNumberofHours(2);
-		assertEquals(2, t2.getAverageNumHours());
+		assertEquals(1, t2.getSubTotalHoursRemaining());
 		
 		t2.reset();
-		assertEquals(4, t2.getSubTotalRemaining());
+		assertEquals(4, t2.getSubTotalHoursRemaining());
 		assertEquals(0, t2.getAverageNumHours());
 		
-		assertFalse(st2.getOverflow());
-		assertTrue(t2.addSubTask(1, true).getOverflow());
+		assertFalse(st2.getOverflowStatus());
+		assertTrue(t2.addSubTask(1, true).getOverflowStatus());
+		
+		Task t3 = new Task("Z", 17, 1);
+		Calendar current = Time.getFormattedCalendarInstance(0);
+		t3.setAverageNumHours(current);
+		assertEquals(9, t3.getAverageNumHours());
 	}
 
 }

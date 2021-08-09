@@ -3,18 +3,18 @@ package agile.planner.io;
 import java.util.HashMap;
 
 /**
- * Handles all String related input/output handling from the command line perspective
+ * Handles all the command manual data and its retrieval by the client
  * 
  * @author Andrew Roe
  */
-public class Commands {
+public class CommandManual {
 	
 	/** Singleton of Commands */
-	private static Commands singleton;
+	private static CommandManual singleton;
 	/** HashMap of the command sheet manual */
 	private HashMap<String, String> commandManual;
 	
-	private Commands() {
+	private CommandManual() {
 		buildCommandManual();
 	}
 	
@@ -50,19 +50,19 @@ public class Commands {
 	 * 
 	 * @return singleton of Commands
 	 */
-	public static Commands getSingleton() {
+	public static CommandManual getSingleton() {
 		if(singleton == null) {
-			singleton = new Commands();
+			singleton = new CommandManual();
 		}
 		return singleton;
 	}
 	
 	/**
-	 * Gets the command sheet HashMap
+	 * Gets the command manual HashMap
 	 * 
-	 * @return HashMap of command sheet
+	 * @return HashMap of command manual
 	 */
-	public HashMap<String, String> getCommandsSheet() {
+	public HashMap<String, String> getCommandManual() {
 		return commandManual;
 	}
 

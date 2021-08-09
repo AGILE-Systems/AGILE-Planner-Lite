@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import agile.planner.io.Commands;
+import agile.planner.io.CommandManual;
 import agile.planner.manager.ScheduleManager;
 import agile.planner.task.Task;
 
@@ -19,13 +19,13 @@ public class SimpleUI {
 	/** Singleton of SimpleUI */
 	private static SimpleUI singleton;
 	/** Manages all scheduling for AGILE Planner */
-	private ScheduleManager sm;
+	private ScheduleManager scheduleManager;
 	/** Holds the manual for all possible commands */
-	private HashMap<String, String> commandSheet;
+	private HashMap<String, String> commandManual;
 	
 	private SimpleUI() {
-		sm = ScheduleManager.getSingleton();
-		commandSheet = Commands.getSingleton().getCommandsSheet();
+		scheduleManager = ScheduleManager.getSingleton();
+		commandManual = CommandManual.getSingleton().getCommandManual();
 	}
 	
 	public static SimpleUI getSingleton() {
@@ -69,35 +69,35 @@ public class SimpleUI {
 			} else if("time".equals(input)) {
 				System.out.println(sdf.format(Calendar.getInstance().getTime()));
 			} else if("schedule".equals(input)) {
-				sm.outputSchedule();
+				scheduleManager.outputSchedule();
 			} else if("add".equals(input)) {
 				String name = strScanner.next();
 				int hours = strScanner.nextInt();
 				int dueDate = strScanner.nextInt();
-  				sm.addTask(new Task(name, hours, dueDate));
+  				scheduleManager.addTask(new Task(name, hours, dueDate));
 			} else if("remove".equals(input)) {
 				int dayIndex = strScanner.nextInt();
 				int taskIndex = strScanner.nextInt();
-				if(sm.removeTask(dayIndex, taskIndex) == null) {
+				if(scheduleManager.removeTask(dayIndex, taskIndex) == null) {
 					System.out.println("Invalid command");
 				}
 			} else if("edit".equals(input)) {
 				
 			} else if("day".equals(input)) {
-				sm.outputDay();
+				scheduleManager.outputCurrentDay();
 			} else if("log".equals(input)) {
 				
 			} else if("print".equals(input)) {
 				
 			} else if("read".equals(input)) {
 				String filename = strScanner.next();
-				sm.processTasks(filename);
+				scheduleManager.processTasks(filename);
 			} else if("quit".equals(input)) {
 				break;
 			} else if("man".equals(input)) {
-				String token = strScanner.next();
-				if(commandSheet.containsKey(token)) {
-					System.out.println(commandSheet.get(token));
+				String command = strScanner.next();
+				if(commandManual.containsKey(command)) {
+					System.out.println(commandManual.get(command));
 				}
 			} else {
 				System.out.println("Invalid command");

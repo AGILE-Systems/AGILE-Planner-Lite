@@ -1,19 +1,13 @@
-/**
- * 
- */
 package agile.planner.io;
 
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 import org.junit.Test;
 
-import agile.planner.manager.day.Day;
 import agile.planner.task.Task;
-import agile.planner.task.Task.SubTask;
 
 /**
  * Tests IOProcessing functionality
@@ -51,10 +45,11 @@ public class IOProcessingTest {
 	@Test
 	public void testReadSchedule() {
 		try {
-			PriorityQueue<Task> pq = IOProcessing.readSchedule("data/data1.txt");
-			assertEquals("CSC216", pq.remove().getName());
-			assertEquals("CSC316", pq.remove().getName());
-			assertEquals("CSC116", pq.remove().getName());
+			PriorityQueue<Task> pq = IOProcessing.readSchedule("data/break.txt");
+			assertEquals("A", pq.remove().getName());
+			assertEquals("B", pq.remove().getName());
+			assertEquals("C", pq.remove().getName());
+			assertEquals("D", pq.remove().getName());
 			assertTrue(pq.isEmpty());
 		} catch (FileNotFoundException e) {
 			fail();
