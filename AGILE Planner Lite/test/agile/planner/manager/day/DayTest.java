@@ -7,6 +7,7 @@ import java.util.Calendar;
 import org.junit.Test;
 
 import agile.planner.task.Task;
+import agile.planner.util.Time;
 
 /**
  * Tests Day functionality
@@ -38,15 +39,15 @@ public class DayTest {
 	public void testAddSubTask() {
 		Day d1 = new Day(8, 0);
 		
-		d1.addSubTask(new Task("CSC316", 6, 1));
+		assertTrue(d1.addSubTask(new Task("CSC316", 6, 1)));
 		assertEquals(5, d1.getSpareHours());
 		
 		assertTrue(d1.hasSpareHours());
 		
-		d1.addSubTask(new Task("CSC230", 8, 2));
+		assertTrue(d1.addSubTask(new Task("CSC230", 8, 2)));
 		assertEquals(2, d1.getSpareHours());
 		
-		d1.addSubTask(new Task("CSC342", 2, 0));
+		assertFalse(d1.addSubTask(new Task("CSC342", 3, 0)));
 		assertFalse(d1.hasSpareHours());
 	}
 
@@ -55,7 +56,27 @@ public class DayTest {
 	 */
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		Calendar date = Calendar.getInstance();
+		date.set(Calendar.DAY_OF_MONTH, 1);
+		date.set(Calendar.MONTH, 0);
+		date.set(Calendar.YEAR, 3000);
+		date.set(Calendar.HOUR_OF_DAY, 0);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		date.set(Calendar.MILLISECOND, 0);
+		
+		Calendar current = Calendar.getInstance();
+		current.set(Calendar.HOUR_OF_DAY, 0);
+		current.set(Calendar.MINUTE, 0);
+		current.set(Calendar.SECOND, 0);
+		current.set(Calendar.MILLISECOND, 0);
+		
+		int days = Time.determineRangeOfDays(date, current);
+		Day d1 = new Day(8, days);
+		d1.addSubTask(new Task("Future", 10, days));
+		String expected = "Date: 01-01-3000\n"
+				+ "1. Future, 10hr, Due 01-01-3000 OVERFLOW\n";
+		assertEquals(expected, d1.toString());
 	}
 
 }
