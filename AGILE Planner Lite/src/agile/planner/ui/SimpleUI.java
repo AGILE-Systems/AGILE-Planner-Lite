@@ -62,21 +62,22 @@ public class SimpleUI {
 		Scanner strScanner = new Scanner(System.in);
 		
 		while(true) {
-			String input = strScanner.nextLine();
+			System.out.print("aproe$ ");
+			String input = strScanner.next();
 			
-			if("time".equals(input)) {
+			if("list".equals(input)) {
+				System.out.println("list\nschedule\ntime\nadd\nremove\nedit\nview\nlog\nprint\nread\nquit");
+			} else if("time".equals(input)) {
 				System.out.println(sdf.format(Calendar.getInstance().getTime()));
 			} else if("schedule".equals(input)) {
 				if(!sm.scheduleIsEmpty()) {
 					sm.outputSchedule();
 				}
 			} else if("add".equals(input)) {
-				System.out.print("Please enter Title,Hours,Due Date: ");
-				System.out.println(strScanner.hasNext());
-//				String name = strScanner.next();
-//				int hours = strScanner.nextInt();
-//				int dueDate = strScanner.nextInt();
-//				sm.addTask(new Task(name, hours, dueDate));
+				String name = strScanner.next();
+				int hours = strScanner.nextInt();
+				int dueDate = strScanner.nextInt();
+  				sm.addTask(new Task(name, hours, dueDate));
 			} else if("remove".equals(input)) {
 				
 			} else if("edit".equals(input)) {
@@ -91,8 +92,11 @@ public class SimpleUI {
 				
 			} else if("quit".equals(input)) {
 				break;
-			} else if(commandSheet.containsKey(input)) {
-				System.out.println(commandSheet.get(input));
+			} else if("man".equals(input)) {
+				String token = strScanner.next();
+				if(commandSheet.containsKey(token)) {
+					System.out.println(commandSheet.get(token));
+				}
 			} else {
 				System.out.println("Invalid command");
 			}
