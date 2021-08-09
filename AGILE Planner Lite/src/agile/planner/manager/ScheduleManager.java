@@ -7,8 +7,6 @@ import java.util.PriorityQueue;
 import agile.planner.io.IOProcessing;
 import agile.planner.manager.day.Day;
 import agile.planner.task.Task;
-import agile.planner.task.Task.SubTask;
-import agile.planner.util.Time;
 
 /**
  * Handles the generation and management of the overall schedule
@@ -156,23 +154,25 @@ public class ScheduleManager {
 		this.totalTasks = copy;
 	}
 	
+	/**
+	 * Outputs the current day's schedule
+	 */
 	public void outputDay() {
-		if(errorCount > 0) {
-			System.out.println(errorCount + " overflows have occurred within schedule...");
-		}
-		System.out.println(schedule.getFirst().toString());
+		IOProcessing.writeDay(schedule.getFirst(), errorCount);
 	}
 	
 	/**
 	 * Outputs the current schedule
 	 */
 	public void outputSchedule() {
-		if(errorCount > 0) {
-			System.out.println(errorCount + " overflows have occurred within schedule...");
-		}
-		IOProcessing.writeSchedule(schedule);
+		IOProcessing.writeSchedule(schedule, errorCount);
 	}
 	
+	/**
+	 * Determines whether the schedule is empty
+	 * 
+	 * @return boolean value for whether schedule is empty
+	 */
 	public boolean scheduleIsEmpty() {
 		return schedule.isEmpty();
 	}

@@ -17,11 +17,28 @@ import agile.planner.task.Task;
 public class IOProcessing {
 	
 	/**
+	 * Outputs the current day in text format
+	 * 
+	 * @param day current day from Schedule
+	 * @param errorCount number of errors with the schedule
+	 */
+	public static void writeDay(Day day, int errorCount) {
+		if(errorCount > 0) {
+			System.out.println(errorCount + " overflows have occurred within schedule...");
+		}
+		System.out.println(day.toString());
+	}
+	
+	/**
 	 * Outputs the schedule in text format
 	 * 
 	 * @param list a list of Days from the Schedule
+	 * @param errorCount number of errors with the schedule
 	 */
-	public static void writeSchedule(LinkedList<Day> list) {
+	public static void writeSchedule(LinkedList<Day> list, int errorCount) {
+		if(errorCount > 0) {
+			System.out.println(errorCount + " overflows have occurred within schedule...");
+		}
 		for(Day day : list) {
 			System.out.println(day.toString());
 		}
