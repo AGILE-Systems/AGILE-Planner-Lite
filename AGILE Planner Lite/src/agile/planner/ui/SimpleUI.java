@@ -66,7 +66,7 @@ public class SimpleUI {
 			String input = strScanner.next();
 			
 			if("list".equals(input)) {
-				System.out.println("list\nschedule\ntime\nadd\nremove\nedit\nview\nlog\nprint\nread\nquit");
+				System.out.println("list\nschedule\ntime\nadd\nremove\nedit\nday\nlog\nprint\nread\nquit");
 			} else if("time".equals(input)) {
 				System.out.println(sdf.format(Calendar.getInstance().getTime()));
 			} else if("schedule".equals(input)) {
@@ -86,8 +86,8 @@ public class SimpleUI {
 				}
 			} else if("edit".equals(input)) {
 				
-			} else if("view".equals(input)) {
-				
+			} else if("day".equals(input)) {
+				sm.outputDay();
 			} else if("log".equals(input)) {
 				
 			} else if("print".equals(input)) {

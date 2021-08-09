@@ -156,6 +156,13 @@ public class ScheduleManager {
 		this.totalTasks = copy;
 	}
 	
+	public void outputDay() {
+		if(errorCount > 0) {
+			System.out.println(errorCount + " overflows have occurred within schedule...");
+		}
+		System.out.println(schedule.getFirst().toString());
+	}
+	
 	/**
 	 * Outputs the current schedule
 	 */

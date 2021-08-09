@@ -35,7 +35,7 @@ public class Commands {
 				+ " any particular task from schedule assuming it exists and is not archived");
 		commandManual.put("edit", "NAME\n\tedit - edits a task within the schedule\n\nSYNOPSIS\n\tedit [day_index] [task_index] [hours]\n\nDESCRIPTION\n\tEdits"
 				+ " a given task within the schedule to possess a valid modification such as name, hours, or due date");
-		commandManual.put("view", "NAME\n\tview - views current day schedule\n\nSYNOPSIS\n\tview\n\nDESCRIPTION\n\tViews the"
+		commandManual.put("day", "NAME\n\tday - views current day schedule\n\nSYNOPSIS\n\tday\n\nDESCRIPTION\n\tViews the"
 				+ " entire day's schedule with all tasks in sorted order based on priority");
 		commandManual.put("log", "NAME\n\tlog - prints a log of all recent commands\n\nSYNOPSIS\n\tlog\n\nDESCRIPTION\n\tViews"
 				+ " the entire day's logging commands history");
