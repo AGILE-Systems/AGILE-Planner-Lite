@@ -29,7 +29,7 @@ public class Commands {
 				+ " all days and their respective tasks from the schedule. Items in each day are sorted by priority.");
 		commandManual.put("time", "NAME\n\ttime - gets current time\n\nSYNOPSIS\n\ttime\n\nDESCRIPTION\n\tGets the"
 				+ " actual time within the system clock in the format of yyyy-mm-dd HH-MM-SS");
-		commandManual.put("add", "NAME\n\tadd - adds a task to schedule\n\nSYNOPSIS\n\tadd [name] [hours] [due date]\n\nDESCRIPTION\n\tAdds any particular"
+		commandManual.put("add", "NAME\n\tadd - adds a task to schedule\n\nSYNOPSIS\n\tadd [name] [hours] [due_date]\n\nDESCRIPTION\n\tAdds any particular"
 				+ " task to the schedule assuming no time conflict has occurred");
 		commandManual.put("remove", "NAME\n\tremove - removes task from schedule\n\nSYNOPSIS\n\tremove [day_index] [task_index]\n\nDESCRIPTION\n\tRemoves"
 				+ " any particular task from schedule assuming it exists and is not archived");

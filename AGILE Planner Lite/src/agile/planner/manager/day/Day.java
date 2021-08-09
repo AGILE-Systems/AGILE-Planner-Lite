@@ -147,7 +147,7 @@ public class Day {
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 		StringBuilder sb = new StringBuilder("Date: " + sdf.format(this.date.getTime()) + "\n");
-		int count = 1;
+		int count = 0;
 		for(SubTask st : subTasks) {
 			sb.append(count + ". ");
 			count++;

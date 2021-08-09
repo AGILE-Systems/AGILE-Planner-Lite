@@ -30,8 +30,9 @@ public class ScheduleManager {
 	 * Initially performs task processing as well as schedule generation
 	 */
 	private ScheduleManager() {
-		processTasks();
-		generateDistributiveSchedule();
+		totalTasks = new PriorityQueue<>();
+		schedule = new LinkedList<>();
+		processGeneratedSchedule();
 	}
 	
 	/**
@@ -48,13 +49,20 @@ public class ScheduleManager {
 	
 	/**
 	 * Processes the Tasks from the given file
+	 * 
+	 * @param filename file to be processed
 	 */
-	private void processTasks() {
+	public void processTasks(String filename) {
 		try {
-			this.totalTasks = IOProcessing.readSchedule("data/break.txt");	//TODO will need to change this
+			totalTasks = IOProcessing.readSchedule("data/" + filename);
+			generateDistributiveSchedule();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("File could not be located");
 		}
+	}
+	
+	private void processGeneratedSchedule() {
+		//Automatically called when scheduler system begins
 	}
 	
 	/**
@@ -98,13 +106,6 @@ public class ScheduleManager {
 	 */
 	public void editTask(int day, String name) {
 		
-	}
-	
-	/**
-	 * Generates an entire schedule following a cram approach
-	 */
-	private void generateCramSchedule() {
-		//TODO will be implemented in v0.9.0
 	}
 	
 	private void resetSchedule() {
@@ -155,17 +156,32 @@ public class ScheduleManager {
 	}
 	
 	/**
+	 * Generates an entire schedule following a cram approach
+	 */
+	private void generateCramSchedule() {
+		//TODO will be implemented in v0.9.0
+	}
+	
+	/**
 	 * Outputs the current day's schedule
 	 */
 	public void outputDay() {
-		IOProcessing.writeDay(schedule.getFirst(), errorCount);
+		if(schedule.isEmpty()) {
+			System.out.println("Schedule is emtpy");
+		} else {
+			IOProcessing.writeDay(schedule.getFirst(), errorCount);
+		}
 	}
 	
 	/**
 	 * Outputs the current schedule
 	 */
 	public void outputSchedule() {
-		IOProcessing.writeSchedule(schedule, errorCount);
+		if(schedule.isEmpty()) {
+			System.out.println("Schedule is emtpy");
+		} else {
+			IOProcessing.writeSchedule(schedule, errorCount);
+		}
 	}
 	
 	/**
