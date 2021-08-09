@@ -22,18 +22,18 @@ public class Day {
 	/** Number of hours filled for a given Day */
 	private int size;
 	/** TreeSet of all SubTasks */
-	private LinkedList<SubTask> subTasks;
+	private LinkedList<SubTask> subtaskManager;
 	
 	/**
 	 * Primary constructor for Day
 	 * 
 	 * @param capacity total capacity for the day
-	 * @param days number of days from present day (0=today, 1=tomorrow, ...)
+	 * @param incrementation number of days from present day (0=today, 1=tomorrow, ...)
 	 */
-	public Day(int capacity, int days) {
+	public Day(int capacity, int incrementation) {
 		setCapacity(capacity);
-		setDate(days);
-		subTasks = new LinkedList<>();
+		setDate(incrementation);
+		subtaskManager = new LinkedList<>();
 	}
 
 	/**
@@ -48,10 +48,10 @@ public class Day {
 	/**
 	 * Sets the Date for the Day
 	 * 
-	 * @param date Date to be set
+	 * @param incrementation number of days from present for the Date to be set
 	 */
-	private void setDate(int days) {
-		this.date = Time.getFormattedCalendarInstance(days);
+	private void setDate(int incrementation) {
+		this.date = Time.getFormattedCalendarInstance(incrementation);
 	}
 	
 	/**
@@ -71,38 +71,38 @@ public class Day {
 	 */
 	public boolean addSubTask(Task task) {
 		if(this.date.equals(task.getDueDate())) {
-			boolean overflow = task.getSubTotalRemaining() > getSpareHours();
-			int hours = task.getSubTotalRemaining();
-			SubTask st = task.addSubTask(hours, overflow);
-			subTasks.addLast(st);
+			boolean overflow = task.getSubTotalHoursRemaining() > getSpareHours();
+			int hours = task.getSubTotalHoursRemaining();
+			SubTask subtask = task.addSubTask(hours, overflow);
+			subtaskManager.addLast(subtask);
 			this.size += hours;
 			return !overflow;
 		}
 		if(task.getAverageNumHours() == 0) {
-			task.setAverageNumberofHours(this.date);
+			task.setAverageNumHours(this.date);
 		}
 		int hours = task.getAverageNumHours();
 		//Handles the case where we actually have less hours available due to scheduling
-		hours = hours > task.getSubTotalRemaining() ? task.getSubTotalRemaining() : hours;
+		hours = hours > task.getSubTotalHoursRemaining() ? task.getSubTotalHoursRemaining() : hours;
 		//Fixes the number of hours according to what the Day has available
 		hours = hours + size > capacity ? capacity - size : hours;
 		
-		SubTask st = task.addSubTask(hours, false);
+		SubTask subtask = task.addSubTask(hours, false);
 		
-		subTasks.addLast(st);
+		subtaskManager.addLast(subtask);
 		this.size += hours;
 		
 		return true;
 	}
 	
 	/**
-	 * Gets the task based on the specified index value
+	 * Gets the parent task based on the specified subtask index value
 	 * 
-	 * @param taskIndex index of task to be removed
-	 * @return task to be removed from schedule
+	 * @param subtaskIndex index of the subtask
+	 * @return parent of subtask
 	 */
-	public Task getTask(int taskIndex) {
-		SubTask subtask = subTasks.get(taskIndex);
+	public Task getParentTask(int subtaskIndex) {
+		SubTask subtask = subtaskManager.get(subtaskIndex);
 		return subtask.getParentTask();
 	}
 	
@@ -122,7 +122,7 @@ public class Day {
 	 * @return number of SubTasks possessed by the Day
 	 */
 	public int getNumSubTasks() {
-		return subTasks.size();
+		return subtaskManager.size();
 	}
 	
 	/**
@@ -148,13 +148,13 @@ public class Day {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 		StringBuilder sb = new StringBuilder("Date: " + sdf.format(this.date.getTime()) + "\n");
 		int count = 0;
-		for(SubTask st : subTasks) {
+		for(SubTask st : subtaskManager) {
 			sb.append(count + ". ");
 			count++;
 			sb.append(st.getParentTask().getName() + ", ");
 			sb.append(st.getSubTaskHours() + "hr, Due ");
 			sb.append(sdf.format(st.getParentTask().getDueDate().getTime()));
-			if(st.getOverflow()) {
+			if(st.getOverflowStatus()) {
 				sb.append(" OVERFLOW");
 			}
 			sb.append("\n");

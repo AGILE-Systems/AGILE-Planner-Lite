@@ -16,11 +16,11 @@ public class Task implements Comparable<Task> {
 	/** Name of the Task */
 	private String name;
 	/** Due date of the Task */
-	private Calendar date;
+	private Calendar dueDate;
 	/** Total number of hours for the Task */
-	private int total;
+	private int totalHours;
 	/** Number of SubTask hours */
-	private int subTotal;
+	private int subTotalHours;
 	/** # of hours / (DueDate - StartingDay) */
 	private int averageNumHours;
 	
@@ -28,13 +28,13 @@ public class Task implements Comparable<Task> {
 	 * Primary constructor for Task
 	 * 
 	 * @param name name of Task
-	 * @param total number of hours for Task
-	 * @param days number of days till due date for Task
+	 * @param hours number of hours for Task
+	 * @param incrementation number of days till due date for Task
 	 */
-	public Task(String name, int total, int days) {
+	public Task(String name, int hours, int incrementation) {
 		setName(name);
-		setTotalHours(total);
-		setDueDate(days);
+		setTotalHours(hours);
+		setDueDate(incrementation);
 	}
 	
 	/**
@@ -45,19 +45,19 @@ public class Task implements Comparable<Task> {
 	 * @return SubTask
 	 */
 	public SubTask addSubTask(int hours, boolean overflow) {
-		SubTask st = null;
-		if(hours > 0 && subTotal + hours <= total) {
-			st = new SubTask(this, hours, overflow);
-			subTotal += hours;
+		SubTask subtask = null;
+		if(hours > 0 && subTotalHours + hours <= totalHours) {
+			subtask = new SubTask(this, hours, overflow);
+			subTotalHours += hours;
 		}
-		return st;
+		return subtask;
 	}
 	
 	/**
 	 * Resets the Task in all of its properties
 	 */
 	public void reset() {
-		subTotal = 0;
+		subTotalHours = 0;
 		this.averageNumHours = 0;
 	}
 	
@@ -66,16 +66,16 @@ public class Task implements Comparable<Task> {
 	 * 
 	 * @return number of unfilled hours for SubTasks
 	 */
-	public int getSubTotalRemaining() {
-		return total - subTotal;
+	public int getSubTotalHoursRemaining() {
+		return totalHours - subTotalHours;
 	}
 	
 	@Override
 	public int compareTo(Task o) {
-		long timeDiff = this.date.compareTo(o.date);
-		if(timeDiff < 0 || timeDiff == 0 && this.getSubTotalRemaining() > o.getSubTotalRemaining()) {	//TODO need to switch this to getTotalHours() [Test it first]
+		long timeDiff = this.dueDate.compareTo(o.dueDate);
+		if(timeDiff < 0 || timeDiff == 0 && this.getSubTotalHoursRemaining() > o.getSubTotalHoursRemaining()) {
 			return -1;
-		} else if(timeDiff > 0 || timeDiff == 0 && this.getSubTotalRemaining() < o.getSubTotalRemaining()) {
+		} else if(timeDiff > 0 || timeDiff == 0 && this.getSubTotalHoursRemaining() < o.getSubTotalHoursRemaining()) {
 			return 1;
 		} else {
 			return 0;
@@ -106,16 +106,16 @@ public class Task implements Comparable<Task> {
 	 * @return due date of Task
 	 */
 	public Calendar getDueDate() {
-		return date;
+		return dueDate;
 	}
 
 	/**
 	 * Sets the due date of the Task
 	 * 
-	 * @param date due date of Task
+	 * @param incrementation number of days till due date for Task
 	 */
-	private void setDueDate(int days) { //TODO will need to include exceptions for the setters
-		this.date = Time.getFormattedCalendarInstance(days);
+	private void setDueDate(int incrementation) { //TODO will need to include exceptions for the setters
+		this.dueDate = Time.getFormattedCalendarInstance(incrementation);
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class Task implements Comparable<Task> {
 	 * @return number of hours for the Task
 	 */
 	public int getTotalHours() {
-		return total;
+		return totalHours;
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class Task implements Comparable<Task> {
 	 * @param total number of hours for the Task
 	 */
 	private void setTotalHours(int total) { //TODO will need to include exceptions for the setters
-		this.total = total;
+		this.totalHours = total;
 	}
 	
 	/**
@@ -141,10 +141,10 @@ public class Task implements Comparable<Task> {
 	 * 
 	 * @param date starting date that the task is available
 	 */
-	public void setAverageNumberofHours(Calendar date) {
-		int days = Time.determineRangeOfDays(date, this.date) + 1;
-		int avgHours = this.total / days;
-		avgHours += this.total % days == 0 ? 0 : 1;
+	public void setAverageNumHours(Calendar date) {
+		int days = Time.determineRangeOfDays(date, this.dueDate) + 1;
+		int avgHours = this.totalHours / days;
+		avgHours += this.totalHours % days == 0 ? 0 : 1;
 		this.averageNumHours = avgHours;
 	}
 	
@@ -159,7 +159,7 @@ public class Task implements Comparable<Task> {
 
 	@Override
 	public String toString() {
-		return "Task [name=" + name + ", total=" + total + "]";
+		return "Task [name=" + name + ", total=" + totalHours + "]";
 	}
 	
 	
@@ -177,7 +177,7 @@ public class Task implements Comparable<Task> {
 		/** Number of hours for the SubTask */
 		private int hours;
 		/** Number of overflow hours due to scheduling */
-		private boolean overflow;
+		private boolean overflowStatus;
 		
 		/**
 		 * Primary constructor for SubTask
@@ -188,7 +188,7 @@ public class Task implements Comparable<Task> {
 		private SubTask(Task parentTask, int hours, boolean overflow) {
 			this.parentTask = parentTask;
 			this.hours = hours;
-			this.overflow = overflow;
+			this.overflowStatus = overflow;
 		}
 		
 		/**
@@ -214,8 +214,8 @@ public class Task implements Comparable<Task> {
 		 * 
 		 * @return overflow status
 		 */
-		public boolean getOverflow() {
-			return overflow;
+		public boolean getOverflowStatus() {
+			return overflowStatus;
 		}
 		
 		@Override
