@@ -52,7 +52,7 @@ public class ScheduleManager {
 	 */
 	private void processTasks() {
 		try {
-			this.totalTasks = IOProcessing.readSchedule("data/data1.txt");	//TODO will need to change this
+			this.totalTasks = IOProcessing.readSchedule("data/break.txt");	//TODO will need to change this
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -64,6 +64,7 @@ public class ScheduleManager {
 	 * @param task Task to be added to schedule
 	 */
 	public void addTask(Task task) {
+		resetSchedule();
 		totalTasks.add(task);
 		generateDistributiveSchedule();
 	}
@@ -95,12 +96,25 @@ public class ScheduleManager {
 		//TODO will be implemented in v0.9.0
 	}
 	
+	private void resetSchedule() {
+		schedule = new LinkedList<>();
+		PriorityQueue<Task> copy = new PriorityQueue<>();
+		while(totalTasks.size() > 0) {
+			Task task = totalTasks.remove();
+			task.reset();
+			copy.add(task);
+		}
+		totalTasks = copy;
+		errorCount = 0;
+	}
+	
 	/**
 	 * Generates an entire schedule following a distributive approach
 	 */
 	private void generateDistributiveSchedule() {
-		this.schedule = new LinkedList<>();
-		this.errorCount = 0;
+//		this.schedule = new LinkedList<>();
+//		this.errorCount = 0;
+		resetSchedule();
 		PriorityQueue<Task> copy = new PriorityQueue<>();
 		PriorityQueue<Task> processed = new PriorityQueue<>();
 		int count = 0;
@@ -108,23 +122,19 @@ public class ScheduleManager {
 			Day day = new Day(8, count++);
 			while(day.hasSpareHours() && totalTasks.size() > 0) {
 				Task task = totalTasks.remove();
-				//TODO need to verify whether task is marked as "finished" (will mean we reset everything to 0 for size, not capacity)
-				if(task.isFinishedStatus()) {
-					task.reset();
-				}
 				boolean validTask = day.addSubTask(task);
-				if(!validTask) {
-					copy.add(task);
-					errorCount++;
-					while(totalTasks.size() > 0 && totalTasks.peek().getDueDate().equals(day.getDate())) {
-						copy.add(totalTasks.peek());
-						day.addSubTask(totalTasks.remove());
-						errorCount++;
-					}
-				} else if(task.getSubTotalRemaining() > 0) {
+				if(task.getSubTotalRemaining() > 0) {
 					processed.add(task);
 				} else {
 					copy.add(task);
+					errorCount += validTask ? 0 : 1;
+					if(!validTask || !day.hasSpareHours()) {
+						while(totalTasks.size() > 0 && totalTasks.peek().getDueDate().equals(day.getDate())) {
+							copy.add(totalTasks.peek());
+							day.addSubTask(totalTasks.remove());
+							errorCount++;
+						}
+					}
 				}
 			}
 			while(processed.size() > 0) {
