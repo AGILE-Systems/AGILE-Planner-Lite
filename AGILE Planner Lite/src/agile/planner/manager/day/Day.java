@@ -146,8 +146,8 @@ public class Day {
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-		StringBuilder sb = new StringBuilder("Date: " + sdf.format(this.date.getTime()) + "\n");
-		int count = 0;
+		StringBuilder sb = new StringBuilder(sdf.format(this.date.getTime()) + "\n");
+		int count = 1;
 		for(SubTask st : subtaskManager) {
 			sb.append(count + ". ");
 			count++;

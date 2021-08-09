@@ -78,5 +78,24 @@ public class DayTest {
 				+ "1. Future, 10hr, Due 01-01-3000 OVERFLOW\n";
 		assertEquals(expected, d1.toString());
 	}
+	
+	/**
+	 * Tests functionality related to task management
+	 */
+	@Test
+	public void testTaskManagement() {
+		Day day = new Day(8, 0);
+		Task task1 = new Task("A", 4, 0);
+		Task task2 = new Task("B", 2, 0);
+		assertEquals(0, day.getNumSubTasks());
+		day.addSubTask(task1);
+		assertEquals(1, day.getNumSubTasks());
+		day.addSubTask(task2);
+		assertEquals(2, day.getNumSubTasks());
+		
+		assertEquals(task1, day.getParentTask(0));
+		assertEquals(task2, day.getParentTask(1));
+		
+	}
 
 }

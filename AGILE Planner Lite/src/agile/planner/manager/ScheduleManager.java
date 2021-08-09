@@ -89,6 +89,8 @@ public class ScheduleManager {
 	 * @return Task removed from Day
 	 */
 	public Task removeTask(int dayIndex, int taskIndex) {
+		dayIndex--;
+		taskIndex--;
 		if(dayIndex < 0 || dayIndex >= schedule.size()) {
 			return null;
 		}

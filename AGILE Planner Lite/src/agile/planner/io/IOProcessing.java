@@ -26,6 +26,7 @@ public class IOProcessing {
 		if(errorCount > 0) {
 			System.out.println(errorCount + " overflows have occurred within schedule...");
 		}
+		System.out.print("Day 1: ");
 		System.out.println(day.toString());
 	}
 	
@@ -39,9 +40,9 @@ public class IOProcessing {
 		if(errorCount > 0) {
 			System.out.println(errorCount + " overflows have occurred within schedule...");
 		}
-		int i = 0;
+		int i = 1;
 		for(Day day : list) {
-			System.out.print("[" + i + "] ");
+			System.out.print("Day " + i + ": ");
 			System.out.println(day.toString());
 			i++;
 		}
