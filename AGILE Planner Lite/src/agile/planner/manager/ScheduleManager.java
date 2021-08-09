@@ -1,6 +1,8 @@
 package agile.planner.manager;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
@@ -177,22 +179,37 @@ public class ScheduleManager {
 	/**
 	 * Outputs the current day's schedule to console
 	 */
-	public void outputCurrentDay() {
+	public void outputCurrentDayToConsole() {
 		if(schedule.isEmpty()) {
 			System.out.println("Schedule is emtpy");
 		} else {
-			IOProcessing.writeDay(schedule.getFirst(), errorCount);
+			IOProcessing.writeDay(schedule.getFirst(), errorCount, null);
 		}
 	}
 	
 	/**
 	 * Outputs the total schedule to console
 	 */
-	public void outputSchedule() {
+	public void outputScheduleToConsole() {
 		if(schedule.isEmpty()) {
 			System.out.println("Schedule is emtpy");
 		} else {
-			IOProcessing.writeSchedule(schedule, errorCount);
+			IOProcessing.writeSchedule(schedule, errorCount, null);
+		}
+	}
+	
+	/**
+	 * Outputs the schedule to the specified file
+	 * 
+	 * @param filename file to be outputted to
+	 */
+	public void outputScheduleToFile(String filename) {
+		try {
+			PrintStream output = new PrintStream(new File(filename));
+			IOProcessing.writeSchedule(schedule, errorCount, output);
+			output.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Error with processing file");
 		}
 	}
 	

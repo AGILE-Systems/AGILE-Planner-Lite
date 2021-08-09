@@ -39,9 +39,9 @@ public class CommandManual {
 				+ " entire day's schedule with all tasks in sorted order based on priority");
 		commandManual.put("log", "NAME\n\tlog - prints a log of all recent commands\n\nSYNOPSIS\n\tlog\n\nDESCRIPTION\n\tViews"
 				+ " the entire day's logging commands history");
-		commandManual.put("print", "NAME\n\tprint - prints the entire schedule\n\nSYNOPSIS\n\tprint\n\nDESCRIPTION\n\tPrints the"
+		commandManual.put("print", "NAME\n\tprint - prints the entire schedule\n\nSYNOPSIS\n\tprint [file_name]\n\nDESCRIPTION\n\tPrints the"
 				+ " entire schedule to the default schedule folder with the title format: schedule-yyyy-mm-dd.txt");
-		commandManual.put("read", "NAME\n\tread - reads in the schedule\n\nSYNOPSIS\n\tread\n\nDESCRIPTION\n\tReads in the schedule"
+		commandManual.put("read", "NAME\n\tread - reads in the schedule\n\nSYNOPSIS\n\tread [file_name]\n\nDESCRIPTION\n\tReads in the schedule"
 				+ " from the default folder and overrites the current schedule");
 	}
 	

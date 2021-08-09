@@ -2,6 +2,7 @@ package agile.planner.io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Scanner;
@@ -21,13 +22,17 @@ public class IOProcessing {
 	 * 
 	 * @param day current day from Schedule
 	 * @param errorCount number of errors with the schedule
+	 * @param output PrintStream for where output is directed
 	 */
-	public static void writeDay(Day day, int errorCount) {
-		if(errorCount > 0) {
-			System.out.println(errorCount + " overflows have occurred within schedule...");
+	public static void writeDay(Day day, int errorCount, PrintStream output) {
+		if(output == null) {
+			output = System.out;
 		}
-		System.out.print("Day 1: ");
-		System.out.println(day.toString());
+		if(errorCount > 0) {
+			output.println(errorCount + " overflows have occurred within schedule...");
+		}
+		output.print("Day 1: ");
+		output.println(day.toString());
 	}
 	
 	/**
@@ -35,15 +40,19 @@ public class IOProcessing {
 	 * 
 	 * @param list a list of Days from the Schedule
 	 * @param errorCount number of errors with the schedule
+	 * @param output PrintStream for where output is directed
 	 */
-	public static void writeSchedule(LinkedList<Day> list, int errorCount) {
+	public static void writeSchedule(LinkedList<Day> list, int errorCount, PrintStream output) {
+		if(output == null) {
+			output = System.out;
+		}
 		if(errorCount > 0) {
-			System.out.println(errorCount + " overflows have occurred within schedule...");
+			output.println(errorCount + " overflows have occurred within schedule...");
 		}
 		int i = 1;
 		for(Day day : list) {
-			System.out.print("Day " + i + ": ");
-			System.out.println(day.toString());
+			output.print("Day " + i + ": ");
+			output.println(day.toString());
 			i++;
 		}
 	}
