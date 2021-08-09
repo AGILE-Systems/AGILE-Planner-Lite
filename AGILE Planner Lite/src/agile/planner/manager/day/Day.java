@@ -96,6 +96,17 @@ public class Day {
 	}
 	
 	/**
+	 * Gets the task based on the specified index value
+	 * 
+	 * @param taskIndex index of task to be removed
+	 * @return task to be removed from schedule
+	 */
+	public Task getTask(int taskIndex) {
+		SubTask subtask = subTasks.get(taskIndex);
+		return subtask.getParentTask();
+	}
+	
+	/**
 	 * Adds a SubTask manually to the Day
 	 * 
 	 * @param task Task to be added
@@ -103,6 +114,15 @@ public class Day {
 	 */
 	public void addSubTaskManually(Task task, int hours) {
 		//TODO will be utilized for the schedule parsing IO
+	}
+	
+	/**
+	 * Gets the number of SubTasks possessed by the Day
+	 * 
+	 * @return number of SubTasks possessed by the Day
+	 */
+	public int getNumSubTasks() {
+		return subTasks.size();
 	}
 	
 	/**

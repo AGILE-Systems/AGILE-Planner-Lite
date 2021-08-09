@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 import agile.planner.io.IOProcessing;
 import agile.planner.manager.day.Day;
 import agile.planner.task.Task;
+import agile.planner.task.Task.SubTask;
 import agile.planner.util.Time;
 
 /**
@@ -72,11 +73,23 @@ public class ScheduleManager {
 	/**
 	 * Removes a task from the schedule given the day and the task name TODO will need to handle duplicates
 	 * 
-	 * @param day day that the task exists (e.g. 0=today, 1=tomorrow, ...)
-	 * @param name name of the task
+	 * @param dayIndex day that the task exists (e.g. 0=today, 1=tomorrow, ...)
+	 * @param taskIndex index of the task to be removed (0=first, 1=second, ...)
+	 * @return Task removed from Day
 	 */
-	public void removeTask(int day, String name) {
-		
+	public Task removeTask(int dayIndex, int taskIndex) {
+		if(dayIndex < 0 || dayIndex >= schedule.size()) {
+			return null;
+		}
+		Day day = schedule.get(dayIndex);
+		if(taskIndex < 0 || taskIndex >= day.getNumSubTasks()) {
+			return null;
+		}
+		Task task = day.getTask(taskIndex);
+		totalTasks.remove(task);
+		resetSchedule();
+		generateDistributiveSchedule();
+		return task;
 	}
 	
 	/**
@@ -112,8 +125,6 @@ public class ScheduleManager {
 	 * Generates an entire schedule following a distributive approach
 	 */
 	private void generateDistributiveSchedule() {
-//		this.schedule = new LinkedList<>();
-//		this.errorCount = 0;
 		resetSchedule();
 		PriorityQueue<Task> copy = new PriorityQueue<>();
 		PriorityQueue<Task> processed = new PriorityQueue<>();

@@ -79,7 +79,11 @@ public class SimpleUI {
 				int dueDate = strScanner.nextInt();
   				sm.addTask(new Task(name, hours, dueDate));
 			} else if("remove".equals(input)) {
-				
+				int dayIndex = strScanner.nextInt();
+				int taskIndex = strScanner.nextInt();
+				if(sm.removeTask(dayIndex, taskIndex) == null) {
+					System.out.println("Invalid command");
+				}
 			} else if("edit".equals(input)) {
 				
 			} else if("view".equals(input)) {
