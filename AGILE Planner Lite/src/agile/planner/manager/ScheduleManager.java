@@ -55,6 +55,8 @@ public class ScheduleManager {
 	public void processTasks(String filename) {
 		try {
 			taskManager = IOProcessing.readSchedule("data/" + filename);
+			schedule = new LinkedList<>();
+			errorCount = 0;
 			generateDistributiveSchedule();
 		} catch (FileNotFoundException e) {
 			System.out.println("File could not be located");
