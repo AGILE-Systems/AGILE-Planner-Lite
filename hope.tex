@@ -1,0 +1,50 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{algorithm} 
+\usepackage{algpseudocode} 
+\begin{document} 
+\begin{algorithm}
+	\caption{BubbleSort} 
+	\begin{algorithmic}[1]
+	\Require $Integer \enspace Array \enspace A$
+	\Ensure $Sorted \enspace Array \enspace A $
+		\State f = TRUE
+		\State c = 1
+		\While {f  \; AND \; c $<$ A.length}
+			\State f = FALSE
+			\For { i = 1 \enspace to \enspace arr.length - 1}
+				\If {A[i] $>$ A[i + 1]}
+					\State f = TRUE
+					\State v = A[i]
+					\State A[i] = A[i + 1]
+					\State A[i + 1] = v
+				\EndIf
+			\EndFor
+		\EndWhile
+	\end{algorithmic} 
+\end{algorithm}
+
+\begin{algorithm}
+	\caption{Game Theory Controller}
+	\begin{algorithmic}[1]
+		\For {Every time step}
+		\State Calculate target seeking command $\mathbf{x}_{tsCmd}$ (Eq.: 3.12)
+		\For {All map measurements from $\mathbf{x}_{Map}$}
+		\State Denormalize measurement (Eq.: 3.14)
+		\State Add margin of safety (Eq.: 3.15)
+		\State Calculate altitude difference $\Delta h_{ObsSafe_{j}}$ to aircraft (Eq.: 3.16)
+		\If {$\Delta h_{ObsSafe_{j}}>0$}
+		\State Add measurement to set of critical measurements $\mathcal{M}_{crit}$ (Eq.: 3.17)
+		\EndIf
+		\EndFor
+		\For {All measurements in $\mathcal{M}_{crit}$}
+		\State Calculate local obstacle avoidance vector (Eq.: 3.20)
+		\EndFor
+		\State Sum over all local avoidance vectors (Eq.: 3.22)
+		\State Transform to global coordinate frame to receive $\mathbf{x}_{oaCmd}$ (Eq.: 3.23)
+		\State Calculate obstacle avoidance weight $w_{oa}$ based on critical zone weight (Eq.: 3.24)
+		\State Calculate target seeking weight $w_{ts}$ as $1-w_{oa}$ (Eq.: 3.13)
+		\State Calculate command vector $\mathbf{x}_{HSaCmd}=w_{oa}\mathbf{x}_{oaCmd}+w_{ts}\mathbf{x}_{tsCmd}$ (Eq.: 3.11)
+		\EndFor
+	\end{algorithmic} 
+\end{algorithm} 
+\end{document}
